@@ -251,6 +251,8 @@ static void generationFromSam(
         }
     }
 
+    copyDir(temp_dir,temp_dir + "/../genie_alico_raw");
+
     run_gabac(filelist, programOptions.configPath, false, programOptions.numThreads);
 
     std::string outfile =
@@ -313,12 +315,12 @@ void decompression_fastq(
             unpackFiles(temp_dir, in);
     fclose(in);
 
-    //copyDir(temp_dir,temp_dir + "/../genie_comp");
+    copyDir(temp_dir,temp_dir + "/../genie_alico_compressed");
 
     // Decompress
     run_gabac(flist, programOptions.configPath, true, programOptions.numThreads);
 
-    //copyDir(temp_dir,temp_dir + "/../genie_uncomp");
+    copyDir(temp_dir,temp_dir + "/../genie_alico_decompressed");
 
     // Extract spring parameters
     spring::compression_params cp;
@@ -404,7 +406,7 @@ void decompression_sam(
 
     alico_main(args.size(), arg_ptrs.data());
 
-//    boost::filesystem::remove_all(temp_dir);
+//   a boost::filesystem::remove_all(temp_dir);
 }
 
 void decompression(
