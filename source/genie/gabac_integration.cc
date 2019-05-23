@@ -68,7 +68,7 @@ void compress_one_file(const std::string& file, const std::string& configfolder,
 
     // Configure gabac streams
     gabac::IOConfiguration
-            ioconf = {&fin_desc, &fout_desc, 1000000000, &std::cout, gabac::IOConfiguration::LogLevel::TRACE};
+            ioconf = {&fin_desc, &fout_desc, std::min(unsigned(boost::filesystem::file_size(file)),1000000000u), &std::cout, gabac::IOConfiguration::LogLevel::TRACE};
     gabac::EncodingConfiguration enConf(config);
 
     std::cout << file << " ..." << std::endl;
@@ -168,7 +168,7 @@ void update_configs(const std::vector<std::string>& files, const std::string& co
                 std::ofstream outstream(configpath, std::ios::binary);
                 std::ifstream instream(file, std::ios::binary);
                 gabac::IOConfiguration
-                        ioconf{&instream, &outstream, 10000000, &std::cout, gabac::IOConfiguration::LogLevel::WARNING};
+                        ioconf{&instream, &outstream, std::min(unsigned(boost::filesystem::file_size(file)),1000000000u), &std::cout, gabac::IOConfiguration::LogLevel::WARNING};
                 gabac::EncodingConfiguration enconf;
                 gabac::analyze(ioconf, gabac::getCandidateConfig());
             }
@@ -192,7 +192,8 @@ void run_gabac(const std::vector<std::string>& files, const std::string& config,
         std::cout << "Testing of configs finished!" << std::endl;
     }
 
-  //  throw std::runtime_error("exit");
+    std::cout << "Running gabac with " << threads << " threads..." << std::endl;
+    auto gabac_start = std::chrono::steady_clock::now();
 
     const size_t NUM_THREADS = threads;
     ThreadPool pool(NUM_THREADS);
@@ -206,6 +207,13 @@ void run_gabac(const std::vector<std::string>& files, const std::string& config,
     }
     pool.wait();
 
+    auto gabac_end = std::chrono::steady_clock::now();
+    std::cout << "Gabac done!\n";
+    std::cout << "Time for this step: "
+              << std::chrono::duration_cast<std::chrono::seconds>(
+                   gabac_end - gabac_start)
+                   .count()
+              << " s\n";
 }
 
 
