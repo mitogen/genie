@@ -1,9 +1,12 @@
 // Copyright 2018 The genie authors
 
 #include "genie/gabac_integration.h"
-#include "genie/thread_pool.h"
+#ifndef GENIE_USE_OPENMP
+# include "genie/thread_pool.h"
+#endif
 
 #include <cmath>
+#include <condition_variable>
 #include <string>
 #include <stdexcept>
 #include <fstream>
@@ -132,7 +135,7 @@ void update_one_config(const std::string& file, const std::string& configpath){
     uint64_t maxval = getMaxValue(file, wordsize);
 
     // avoid binarizations for large values
-    if(maxval >= std::numeric_limits<uint32_t >::max() && wordsize == 8) {
+    if(maxval > std::numeric_limits<uint32_t >::max()) {
         wordsize = 4;
         maxval = getMaxValue(file, wordsize);
     }
@@ -195,6 +198,15 @@ void run_gabac(const std::vector<std::string>& files, const std::string& config,
     std::cout << "Running gabac with " << threads << " threads..." << std::endl;
     auto gabac_start = std::chrono::steady_clock::now();
 
+#ifdef GENIE_USE_OPENMP
+
+    const size_t ub = files.size();
+#pragma omp parallel for num_threads(threads), schedule(dynamic)
+    for (size_t i = 0; i < ub; i++) {
+        compress_one_file(files[i], config, decompress);
+    }
+
+#else
     const size_t NUM_THREADS = threads;
     ThreadPool pool(NUM_THREADS);
     for (const auto& file : files) {
@@ -206,6 +218,8 @@ void run_gabac(const std::vector<std::string>& files, const std::string& config,
         );
     }
     pool.wait();
+
+#endif /* GENIE_USE_OPENMP */
 
     auto gabac_end = std::chrono::steady_clock::now();
     std::cout << "Gabac done!\n";
