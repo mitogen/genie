@@ -14,6 +14,10 @@ class ProgramOptions {
     ~ProgramOptions();
 
     //Add other member functions here
+    ProgramOptions(const ProgramOptions&) = default;
+    ProgramOptions& operator=(const ProgramOptions&) = default;
+    ProgramOptions(ProgramOptions&&) = default;
+    ProgramOptions& operator=(ProgramOptions&&) = default;
 
    public:
     std::string configurationFilePath;
