@@ -7,9 +7,13 @@ namespace gabacify {
 
 class ProgramOptions {
    public:
+    //constructor
     ProgramOptions(int argc, char *argv[]);
 
+    //destructor
     ~ProgramOptions();
+
+    //Add other member functions here
 
    public:
     std::string configurationFilePath;
