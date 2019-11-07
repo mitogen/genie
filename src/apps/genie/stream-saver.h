@@ -72,6 +72,13 @@ class StreamSaver {
     StreamSaver(const std::string &configp, std::ostream *f, std::istream *ifile, bool deb = false);
 
     ~StreamSaver();
+
+    //to review
+    StreamSaver(const StreamSaver&) = delete;
+    StreamSaver& operator=(const StreamSaver&) = delete;
+    StreamSaver(StreamSaver&&) = delete;
+    StreamSaver& operator=(StreamSaver&&) = delete;
+
 };
 }  // namespace dsg
 #endif  // GENIE_STREAM_SAVER_H

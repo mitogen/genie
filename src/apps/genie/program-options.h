@@ -20,6 +20,13 @@ class ProgramOptions {
 
     ~ProgramOptions(void);
 
+    //to review
+    ProgramOptions(const ProgramOptions&) = delete;
+    ProgramOptions& operator=(const ProgramOptions&) = delete;
+    ProgramOptions(ProgramOptions&&) = delete;
+    ProgramOptions& operator=(ProgramOptions&&) = delete;
+
+
     void print(void);
 
    public:
