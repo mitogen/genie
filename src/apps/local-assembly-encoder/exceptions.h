@@ -41,7 +41,6 @@ class RuntimeException : public Exception {
     ~RuntimeException() noexcept override;
 
     //to review
-    RuntimeException(const RuntimeException&) = delete; //CLion gives an error I'm not sure how to correct
     RuntimeException& operator=(const RuntimeException&) = delete;
     RuntimeException(RuntimeException&&) = delete;
     RuntimeException& operator=(RuntimeException&&) = delete;
