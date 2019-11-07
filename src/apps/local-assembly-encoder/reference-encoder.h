@@ -30,6 +30,13 @@ namespace lae {
     public:
         explicit LocalAssemblyReferenceEncoder(uint32_t _cr_buf_max_size);
 
+        //to review
+        virtual ~LocalAssemblyReferenceEncoder() = default;
+        LocalAssemblyReferenceEncoder(const LocalAssemblyReferenceEncoder&) = delete;
+        LocalAssemblyReferenceEncoder& operator=(const LocalAssemblyReferenceEncoder&) = delete;
+        LocalAssemblyReferenceEncoder(LocalAssemblyReferenceEncoder&&) = delete;
+        LocalAssemblyReferenceEncoder& operator=(LocalAssemblyReferenceEncoder&&) = delete;
+
         void addRead(const util::SamRecord& rec);
 
         std::string getReference(uint32_t pos_offset, const std::string &cigar);

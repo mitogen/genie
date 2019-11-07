@@ -17,6 +17,13 @@ namespace lae {
     public:
         explicit LocalAssemblyReadEncoder();
 
+        //to review
+        virtual ~LocalAssemblyReadEncoder() = default;
+        LocalAssemblyReadEncoder(const LocalAssemblyReadEncoder&) = delete;
+        LocalAssemblyReadEncoder& operator=(const LocalAssemblyReadEncoder&) = delete;
+        LocalAssemblyReadEncoder(LocalAssemblyReadEncoder&&) = delete;
+        LocalAssemblyReadEncoder& operator=(LocalAssemblyReadEncoder&&) = delete;
+
         void addRead(const util::SamRecord& rec, const std::string& ref);
 
         std::unique_ptr<StreamContainer> pollStreams();

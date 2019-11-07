@@ -11,7 +11,14 @@ class ProgramOptions {
 
     ~ProgramOptions();
 
-   public:
+    //to review
+    ProgramOptions(const ProgramOptions&) = delete;
+    ProgramOptions& operator=(const ProgramOptions&) = delete;
+    ProgramOptions(ProgramOptions&&) = delete;
+    ProgramOptions& operator=(ProgramOptions&&) = delete;
+
+
+public:
     std::string inputFilePath;
     std::string outputFilePath;
 

@@ -23,6 +23,13 @@ namespace lae {
 
         explicit LocalAssemblyReadDecoder(std::unique_ptr<StreamContainer> _container);
 
+        //to review
+        virtual ~LocalAssemblyReadDecoder() = default;
+        LocalAssemblyReadDecoder(const LocalAssemblyReadDecoder&) = delete;
+        LocalAssemblyReadDecoder& operator=(const LocalAssemblyReadDecoder&) = delete;
+        LocalAssemblyReadDecoder(LocalAssemblyReadDecoder&&) = delete;
+        LocalAssemblyReadDecoder& operator=(LocalAssemblyReadDecoder&&) = delete;
+
         void decodeRead(const std::string& ref, util::SamRecord* s);
 
         uint32_t lengthOfNextRead();
