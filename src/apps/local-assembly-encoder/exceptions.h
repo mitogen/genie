@@ -18,10 +18,10 @@ class Exception : public std::exception {
     ~Exception() noexcept override;
 
     //to review
-    Exception(const Exception&) = delete;
-    Exception& operator=(const Exception&) = delete;
-    Exception(Exception&&) = delete;
-    Exception& operator=(Exception&&) = delete;
+    Exception(const Exception&) = default;
+    Exception& operator=(const Exception&) = default;
+    Exception(Exception&&) = default;
+    Exception& operator=(Exception&&) = default;
 
     virtual std::string message() const;
 
@@ -41,9 +41,9 @@ class RuntimeException : public Exception {
     ~RuntimeException() noexcept override;
 
     //to review
-    RuntimeException& operator=(const RuntimeException&) = delete;
-    RuntimeException(RuntimeException&&) = delete;
-    RuntimeException& operator=(RuntimeException&&) = delete;
+    RuntimeException& operator=(const RuntimeException&) = default;
+    RuntimeException(RuntimeException&&) = default;
+    RuntimeException& operator=(RuntimeException&&) = default;
 
 };
 
