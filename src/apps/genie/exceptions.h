@@ -25,6 +25,12 @@ class Exception : public std::exception {
 
     virtual ~Exception(void) throw();
 
+    //to review
+    Exception(const Exception&) = default; //raised an error in CLion below when deleted
+    Exception& operator=(const Exception&) = default;
+    Exception(Exception&&) = default;
+    Exception& operator=(Exception&&) = default;
+
     virtual std::string getMessage(void) const;
 
     virtual const char* what(void) const throw();
@@ -36,6 +42,13 @@ class Exception : public std::exception {
 class RuntimeErrorException : public Exception {
    public:
     explicit RuntimeErrorException(const std::string& message);
+
+    //to review
+    virtual ~RuntimeErrorException() = default;
+    RuntimeErrorException(const RuntimeErrorException&) = delete;
+    RuntimeErrorException& operator=(const RuntimeErrorException&) = delete;
+    RuntimeErrorException(RuntimeErrorException&&) = default; //setting this to delete caused a CLion error below
+    RuntimeErrorException& operator=(RuntimeErrorException&&) = delete;
 };
 
 inline void throwRuntimeError(const std::string& message) {
@@ -46,6 +59,13 @@ inline void throwRuntimeError(const std::string& message) {
 class RuntimeErrorReporter {
    public:
     RuntimeErrorReporter(const std::string& file, const std::string& function, const int line);
+
+    //to review
+    virtual ~RuntimeErrorReporter() = default;
+    RuntimeErrorReporter(const RuntimeErrorReporter&) = delete;
+    RuntimeErrorReporter& operator=(const RuntimeErrorReporter&) = delete;
+    RuntimeErrorReporter(RuntimeErrorReporter&&) = delete;
+    RuntimeErrorReporter& operator=(RuntimeErrorReporter&&) = delete;
 
     void operator()(const std::string& message) {
         std::string s = dateTime() + " ";
