@@ -17,7 +17,7 @@ namespace lae {
     public:
         explicit LocalAssemblyReadEncoder();
 
-        //to review
+        // TODO Jan check these
         virtual ~LocalAssemblyReadEncoder() = default;
         LocalAssemblyReadEncoder(const LocalAssemblyReadEncoder&) = delete;
         LocalAssemblyReadEncoder& operator=(const LocalAssemblyReadEncoder&) = delete;

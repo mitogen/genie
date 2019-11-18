@@ -73,7 +73,7 @@ class StreamSaver {
 
     ~StreamSaver();
 
-    //to review
+    // TODO Jan check these
     StreamSaver(const StreamSaver&) = delete;
     StreamSaver& operator=(const StreamSaver&) = delete;
     StreamSaver(StreamSaver&&) = delete;

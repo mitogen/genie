@@ -11,7 +11,7 @@ class ProgramOptions {
 
     ~ProgramOptions();
 
-    //to review
+    //TODO Jan check these
     ProgramOptions(const ProgramOptions&) = delete;
     ProgramOptions& operator=(const ProgramOptions&) = delete;
     ProgramOptions(ProgramOptions&&) = delete;

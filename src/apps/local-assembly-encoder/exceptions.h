@@ -17,7 +17,7 @@ class Exception : public std::exception {
 
     ~Exception() noexcept override;
 
-    //to review
+    //TODO Jan check these
     Exception(const Exception&) = default;
     Exception& operator=(const Exception&) = default;
     Exception(Exception&&) = default;

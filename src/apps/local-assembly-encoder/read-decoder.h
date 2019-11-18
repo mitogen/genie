@@ -23,7 +23,7 @@ namespace lae {
 
         explicit LocalAssemblyReadDecoder(std::unique_ptr<StreamContainer> _container);
 
-        //to review
+        // TODO Jan check these
         virtual ~LocalAssemblyReadDecoder() = default;
         LocalAssemblyReadDecoder(const LocalAssemblyReadDecoder&) = delete;
         LocalAssemblyReadDecoder& operator=(const LocalAssemblyReadDecoder&) = delete;

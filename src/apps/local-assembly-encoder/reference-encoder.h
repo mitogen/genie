@@ -30,7 +30,7 @@ namespace lae {
     public:
         explicit LocalAssemblyReferenceEncoder(uint32_t _cr_buf_max_size);
 
-        //to review
+        // TODO Jan check these
         virtual ~LocalAssemblyReferenceEncoder() = default;
         LocalAssemblyReferenceEncoder(const LocalAssemblyReferenceEncoder&) = delete;
         LocalAssemblyReferenceEncoder& operator=(const LocalAssemblyReferenceEncoder&) = delete;

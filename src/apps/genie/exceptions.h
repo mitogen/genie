@@ -43,7 +43,7 @@ class RuntimeErrorException : public Exception {
    public:
     explicit RuntimeErrorException(const std::string& message);
 
-    //to review
+    // TODO Jan check these
     virtual ~RuntimeErrorException() = default;
     RuntimeErrorException(const RuntimeErrorException&) = delete;
     RuntimeErrorException& operator=(const RuntimeErrorException&) = delete;
@@ -60,7 +60,7 @@ class RuntimeErrorReporter {
    public:
     RuntimeErrorReporter(const std::string& file, const std::string& function, const int line);
 
-    //to review
+    // TODO Jan check these
     virtual ~RuntimeErrorReporter() = default;
     RuntimeErrorReporter(const RuntimeErrorReporter&) = delete;
     RuntimeErrorReporter& operator=(const RuntimeErrorReporter&) = delete;
