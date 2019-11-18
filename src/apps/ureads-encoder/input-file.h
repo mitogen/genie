@@ -13,6 +13,12 @@ class InputFile : public File {
 
     ~InputFile() override;
 
+    // TODO Jan to check these
+    InputFile(const InputFile&) = delete;
+    InputFile& operator=(const InputFile&) = delete;
+    InputFile(InputFile&&) = delete;
+    InputFile& operator=(InputFile&&) = delete;
+
     void read(void* items, size_t itemSize, size_t numItems);
 };
 

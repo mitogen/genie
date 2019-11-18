@@ -11,6 +11,13 @@ class GenieGabacOutputBuffer : public std::streambuf {
    public:
     GenieGabacOutputBuffer();
 
+    // TODO Jan to check these
+    ~GenieGabacOutputBuffer();
+    GenieGabacOutputBuffer(const GenieGabacOutputBuffer&) = delete;
+    GenieGabacOutputBuffer& operator=(const GenieGabacOutputBuffer&) = delete;
+    GenieGabacOutputBuffer(GenieGabacOutputBuffer&&) = delete;
+    GenieGabacOutputBuffer& operator=(GenieGabacOutputBuffer&&) = delete;
+
    protected:
     int overflow(int c) override;
     std::streamsize xsputn(const char *s, std::streamsize n) override;
@@ -27,6 +34,13 @@ class GenieGabacOutputBuffer : public std::streambuf {
 class GenieGabacOutputStream : public GenieGabacOutputBuffer, public std::ostream {
    public:
     GenieGabacOutputStream() : GenieGabacOutputBuffer(), std::ostream(this) {}
+
+    // TODO Jan to check these
+    ~GenieGabacOutputStream();
+    GenieGabacOutputStream(const GenieGabacOutputStream&) = delete;
+    GenieGabacOutputStream& operator=(const GenieGabacOutputStream&) = delete;
+    GenieGabacOutputStream(GenieGabacOutputStream&&) = delete;
+    GenieGabacOutputStream& operator=(GenieGabacOutputStream&&) = delete;
 };
 
 }  // namespace genie

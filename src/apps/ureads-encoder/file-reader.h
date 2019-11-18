@@ -10,6 +10,13 @@ class FileReader {
     FileReader();
     explicit FileReader(const std::string& path);
     virtual ~FileReader();
+
+    // TODO Jan to check these
+    FileReader(const FileReader&) = delete;
+    FileReader& operator=(const FileReader&) = delete;
+    FileReader(FileReader&&) = delete;
+    FileReader& operator=(FileReader&&) = delete;
+
     //    void advance(int64_t offset);
     bool eof() const;
     void close();

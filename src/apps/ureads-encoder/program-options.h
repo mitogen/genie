@@ -11,6 +11,12 @@ class ProgramOptions {
     ProgramOptions(int argc, char *argv[]);
     ~ProgramOptions();
 
+    // TODO Jan to check these
+    ProgramOptions(const ProgramOptions&) = delete;
+    ProgramOptions& operator=(const ProgramOptions&) = delete;
+    ProgramOptions(ProgramOptions&&) = delete;
+    ProgramOptions& operator=(ProgramOptions&&) = delete;
+
    public:
     std::string inputFilePath;
     std::string outputFilePath;

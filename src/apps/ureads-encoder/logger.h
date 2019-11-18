@@ -55,6 +55,10 @@ class Logger {
     ~Logger() = default;
     Logger(const Logger& logger) = delete;
     Logger& operator=(const Logger& logger) = delete;
+
+    // TODO Jan to check these
+    Logger(Logger&&) = delete;
+    Logger& operator=(Logger&&) = delete;
 };
 
 }  // namespace genie

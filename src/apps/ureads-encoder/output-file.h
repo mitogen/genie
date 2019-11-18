@@ -15,6 +15,12 @@ class OutputFile : public File {
 
     ~OutputFile() override;
 
+    // TODO Jan to check these
+    OutputFile(const OutputFile&) = delete;
+    OutputFile& operator=(const OutputFile&) = delete;
+    OutputFile(OutputFile&&) = delete;
+    OutputFile& operator=(OutputFile&&) = delete;
+
     void write(void* items, size_t itemSize, size_t numItems);
 };
 
