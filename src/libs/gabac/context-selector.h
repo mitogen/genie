@@ -19,6 +19,12 @@ class ContextSelector {
 
     ~ContextSelector() = default;
 
+    // TODO Jan check these
+    ContextSelector(const ContextSelector&) = delete;
+    ContextSelector& operator=(const ContextSelector&) = delete;
+    ContextSelector(ContextSelector&&) = delete;
+    ContextSelector& operator=(ContextSelector&&) = delete;
+
     /**
      * @note Inline definition for performance as suggested by NCSA
      */

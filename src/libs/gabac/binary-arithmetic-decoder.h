@@ -16,6 +16,14 @@ class ContextModel;
 class BinaryArithmeticDecoder {
    public:
     explicit BinaryArithmeticDecoder(const BitInputStream& bitInputStream);
+
+    // TODO Jan check these
+    virtual ~BinaryArithmeticDecoder() = default;
+    BinaryArithmeticDecoder(const BinaryArithmeticDecoder&) = delete;
+    BinaryArithmeticDecoder& operator=(const BinaryArithmeticDecoder&) = delete;
+    BinaryArithmeticDecoder(BinaryArithmeticDecoder&&) = delete;
+    BinaryArithmeticDecoder& operator=(BinaryArithmeticDecoder&&) = delete;
+
     unsigned int decodeBin(ContextModel* contextModel);
     unsigned int decodeBinsEP(unsigned int numBins);
     void decodeBinTrm();

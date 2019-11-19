@@ -19,6 +19,12 @@ class BitInputStream {
 
     ~BitInputStream();
 
+    // TODO Jan check these
+    BitInputStream(const BitInputStream&) = delete;
+    BitInputStream& operator=(const BitInputStream&) = delete;
+    BitInputStream(BitInputStream&&) = delete;
+    BitInputStream& operator=(BitInputStream&&) = delete;
+
     unsigned int getNumBitsUntilByteAligned() const;
 
     unsigned char readByte();

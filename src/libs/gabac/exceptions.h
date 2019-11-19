@@ -45,6 +45,12 @@ class Exception : public std::exception {
      */
     const char* what() const noexcept override;
 
+    // TODO Jan check these
+    Exception(const Exception&) = delete;
+    Exception& operator=(const Exception&) = delete;
+    Exception(Exception&&) = delete;
+    Exception& operator=(Exception&&) = delete;
+
    protected:
     std::string m_message;
 };
@@ -74,6 +80,11 @@ class RuntimeException : public Exception {
      * @brief Destroy exception
      */
     ~RuntimeException() noexcept override;
+
+    // TODO Jan check these
+    RuntimeException& operator=(const RuntimeException&) = delete;
+    RuntimeException(RuntimeException&&) = delete;
+    RuntimeException& operator=(RuntimeException&&) = delete;
 };
 
 }  // namespace gabac

@@ -25,6 +25,13 @@ class FileBuffer : public std::streambuf {
      */
     explicit FileBuffer(FILE *f);
 
+    // TODO Jan check these
+    virtual ~FileBuffer() = default;
+    FileBuffer(const FileBuffer&) = delete;
+    FileBuffer& operator=(const FileBuffer&) = delete;
+    FileBuffer(FileBuffer&&) = delete;
+    FileBuffer& operator=(FileBuffer&&) = delete;
+
    protected:
     int overflow(int c) override;
     std::streamsize xsputn(const char *s, std::streamsize n) override;
@@ -48,6 +55,13 @@ class DataBlockBuffer : public std::streambuf {
      * @param pos_i Position to start in the block (mainly for input)
      */
     explicit DataBlockBuffer(DataBlock *d, size_t pos_i = 0);
+
+    // TODO Jan check these
+    virtual ~DataBlockBuffer() = default;
+    DataBlockBuffer(const DataBlockBuffer&) = delete;
+    DataBlockBuffer& operator=(const DataBlockBuffer&) = delete;
+    DataBlockBuffer(DataBlockBuffer&&) = delete;
+    DataBlockBuffer& operator=(DataBlockBuffer&&) = delete;
 
     size_t size() const;
    protected:
@@ -73,6 +87,13 @@ class IFileStream : public FileBuffer, public std::istream {
      * @param f FILE* to operate on
      */
     explicit IFileStream(FILE *f);
+
+    // TODO Jan check these
+    virtual ~IFileStream() = default;
+    IFileStream(const IFileStream&) = delete;
+    IFileStream& operator=(const IFileStream&) = delete;
+    IFileStream(IFileStream&&) = delete;
+    IFileStream& operator=(IFileStream&&) = delete;
 };
 
 /**
@@ -85,6 +106,13 @@ class OFileStream : public FileBuffer, public std::ostream {
      * @param f FILE* to operate on
      */
     explicit OFileStream(FILE *f);
+
+    // TODO Jan check these
+    virtual ~OFileStream() = default;
+    OFileStream(const OFileStream&) = delete;
+    OFileStream& operator=(const OFileStream&) = delete;
+    OFileStream(OFileStream&&) = delete;
+    OFileStream& operator=(OFileStream&&) = delete;
 };
 
 /**
@@ -98,6 +126,13 @@ class IBufferStream : public DataBlockBuffer, public std::istream {
      * @param pos_i Input starting position.
      */
     explicit IBufferStream(DataBlock *d, size_t pos_i = 0);
+
+    // TODO Jan check these
+    virtual ~IBufferStream() = default;
+    IBufferStream(const IBufferStream&) = delete;
+    IBufferStream& operator=(const IBufferStream&) = delete;
+    IBufferStream(IBufferStream&&) = delete;
+    IBufferStream& operator=(IBufferStream&&) = delete;
 };
 
 /**
@@ -111,6 +146,13 @@ class OBufferStream : public DataBlockBuffer, public std::ostream {
      * @todo check if parameter necessary
      */
     explicit OBufferStream(DataBlock *d);
+
+    // TODO Jan check these
+    virtual ~OBufferStream() = default;
+    OBufferStream(const OBufferStream&) = delete;
+    OBufferStream& operator=(const OBufferStream&) = delete;
+    OBufferStream(OBufferStream&&) = delete;
+    OBufferStream& operator=(OBufferStream&&) = delete;
 
     /**
      * @brief Swap internal block with external one
@@ -136,6 +178,13 @@ class NullStream : public std::ostream {
      * @brief Create new nullstream
      */
     NullStream();
+
+    // TODO Jan check these
+    virtual ~NullStream() = default;
+    NullStream(const NullStream&) = delete;
+    NullStream& operator=(const NullStream&) = delete;
+    NullStream(NullStream&&) = delete;
+    NullStream& operator=(NullStream&&) = delete;
 
    private:
     NullBuffer m_sb;

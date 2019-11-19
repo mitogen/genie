@@ -33,7 +33,7 @@ class AccessUnit : public DataUnit {
                DatasetType dataset_type, uint8_t posSize, uint8_t signatureSize, uint32_t multiple_signature_base);
 
     // TODO Jan check these
-    virtual ~AccessUnit() = delete;
+    virtual ~AccessUnit() = default;
     AccessUnit(const AccessUnit&) = delete;
     AccessUnit& operator=(const AccessUnit&) = delete;
     AccessUnit(AccessUnit&&) = delete;

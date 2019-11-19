@@ -25,6 +25,12 @@ class Writer {
 
     ~Writer();
 
+    // TODO Jan check these
+    Writer(const Writer&) = delete;
+    Writer& operator=(const Writer&) = delete;
+    Writer(Writer&&) = delete;
+    Writer& operator=(Writer&&) = delete;
+
     void start(size_t numSymbols);
 
     void reset();

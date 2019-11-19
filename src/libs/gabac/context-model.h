@@ -17,6 +17,12 @@ class ContextModel {
 
     ~ContextModel();
 
+    // TODO Jan check these
+    ContextModel(const ContextModel&) = delete;
+    ContextModel& operator=(const ContextModel&) = delete;
+    ContextModel(ContextModel&&) = delete;
+    ContextModel& operator=(ContextModel&&) = delete;
+
     /**
      * @note Inline definition for performance as suggested by NCSA
      */

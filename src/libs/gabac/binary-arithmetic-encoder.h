@@ -19,6 +19,12 @@ class BinaryArithmeticEncoder {
 
     ~BinaryArithmeticEncoder();
 
+    // TODO Jan check these
+    BinaryArithmeticEncoder(const BinaryArithmeticEncoder&) = delete;
+    BinaryArithmeticEncoder& operator=(const BinaryArithmeticEncoder&) = delete;
+    BinaryArithmeticEncoder(BinaryArithmeticEncoder&&) = delete;
+    BinaryArithmeticEncoder& operator=(BinaryArithmeticEncoder&&) = delete;
+
     void encodeBin(unsigned int bin, ContextModel* contextModel);
 
     void encodeBinEP(unsigned int bin);

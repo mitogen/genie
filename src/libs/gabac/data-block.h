@@ -117,6 +117,13 @@ class DataBlock {
          * element.
          */
         ProxyCore &operator=(uint64_t val);
+
+        // TODO Jan check these
+        virtual ~ProxyCore() = default;
+        ProxyCore(const ProxyCore&) = delete;
+        ProxyCore& operator=(const ProxyCore&) = delete;
+        ProxyCore(ProxyCore&&) = delete;
+        ProxyCore& operator=(ProxyCore&&) = delete;
     };
 
     using Proxy = ProxyCore<DataBlock *>;            /**< Standard proxy */
@@ -224,6 +231,13 @@ class DataBlock {
         using pointer = ProxyCore<T> *;                            /**< @brief Pointer type for STL */
         using value_type = ProxyCore<T>;                           /**< @brief Value type for STL */
         using difference_type = size_t;                            /**< @brief Difference type for STL */
+
+        // TODO Jan check these
+        virtual ~IteratorCore() = default;
+        IteratorCore(const IteratorCore&) = delete;
+        IteratorCore& operator=(const IteratorCore&) = delete;
+        IteratorCore(IteratorCore&&) = delete;
+        IteratorCore& operator=(IteratorCore&&) = delete;
     };
 
     using Iterator = IteratorCore<DataBlock *>;            /**< @brief Default iterator */

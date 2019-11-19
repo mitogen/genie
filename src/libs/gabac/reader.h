@@ -24,6 +24,12 @@ class Reader {
 
     ~Reader();
 
+    // TODO Jan check these
+    Reader(const Reader&) = delete;
+    Reader& operator=(const Reader&) = delete;
+    Reader(Reader&&) = delete;
+    Reader& operator=(Reader&&) = delete;
+
     size_t readNumSymbols();
 
     uint64_t readAsBIbypass(unsigned int cLength);
