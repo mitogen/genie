@@ -73,6 +73,11 @@ class bfile_iterator : public std::iterator<std::forward_iterator_tag, basetype>
         if (_buffer != NULL) free(_buffer);
     }
 
+    // TODO Jan check these
+    bfile_iterator& operator=(const bfile_iterator&) = delete;
+    bfile_iterator(bfile_iterator&&) = delete;
+    bfile_iterator& operator=(bfile_iterator&&) = delete;
+
     basetype const &operator*() { return _elem; }
 
     bfile_iterator &operator++() {
@@ -139,6 +144,12 @@ class file_binary {
     }
 
     ~file_binary() { fclose(_is); }
+
+    // TODO Jan check these
+    file_binary(const file_binary&) = delete;
+    file_binary& operator=(const file_binary&) = delete;
+    file_binary(file_binary&&) = default;
+    file_binary& operator=(file_binary&&) = delete;
 
     bfile_iterator<type_elem> begin() const { return bfile_iterator<type_elem>(_is); }
 
@@ -304,6 +315,13 @@ class Progress {
 
     Progress() : timer_mode(0) {}
     // include timer, to print ETA ?
+
+    // TODO Jan check these
+    virtual ~Progress() = default;
+    Progress(const Progress&) = delete;
+    Progress& operator=(const Progress&) = delete;
+    Progress(Progress&&) = default;
+    Progress& operator=(Progress&&) = delete;
 };
 
 typedef std::array<uint64_t, 10> hash_set_t;

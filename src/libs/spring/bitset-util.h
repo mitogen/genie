@@ -45,6 +45,12 @@ class bbhashdict {
         if (empty_bin != NULL) delete[] empty_bin;
         if (bphf != NULL) delete bphf;
     }
+
+    // TODO Jan check these
+    bbhashdict(const bbhashdict&) = delete;
+    bbhashdict& operator=(const bbhashdict&) = delete;
+    bbhashdict(bbhashdict&&) = delete;
+    bbhashdict& operator=(bbhashdict&&) = delete;
 };
 
 template <size_t bitset_size>

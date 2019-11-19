@@ -14,6 +14,13 @@ class generated_aus_ref {
     generated_aus_ref(const std::vector<std::map<uint8_t, std::map<uint8_t, std::string>>> &refAus,
                       const std::vector<uint64_t> &refStart, const std::vector<uint64_t> &refEnd);
 
+    // TODO Jan check these
+    virtual ~generated_aus_ref() = default;
+    generated_aus_ref(const generated_aus_ref&) = delete;
+    generated_aus_ref& operator=(const generated_aus_ref&) = delete;
+    generated_aus_ref(generated_aus_ref&&) = default;
+    generated_aus_ref& operator=(generated_aus_ref&&) = delete;
+
     const std::vector<std::map<uint8_t, std::map<uint8_t, std::string>>> &getRefAus() const;
 
     const std::vector<uint64_t> &getRefStart() const;
@@ -26,6 +33,13 @@ class generated_aus {
 
    public:
     generated_aus(const std::vector<std::map<uint8_t, std::map<uint8_t, std::string>>> &encodedFastqAus);
+
+    // TODO Jan check these
+    virtual ~generated_aus() = default;
+    generated_aus(const generated_aus&) = delete;
+    generated_aus& operator=(const generated_aus&) = delete;
+    generated_aus(generated_aus&&) = default;
+    generated_aus& operator=(generated_aus&&) = delete;
 
     const std::vector<std::map<uint8_t, std::map<uint8_t, std::string>>> &getEncodedFastqAus() const;
 };
