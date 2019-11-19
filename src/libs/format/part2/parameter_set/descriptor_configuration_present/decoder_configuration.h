@@ -32,6 +32,12 @@ class DecoderConfiguration {
 
     virtual ~DecoderConfiguration() = default;
 
+    // TODO Jan check these
+    DecoderConfiguration(const DecoderConfiguration&) = delete;
+    DecoderConfiguration& operator=(const DecoderConfiguration&) = delete;
+    DecoderConfiguration(DecoderConfiguration&&) = default;
+    DecoderConfiguration& operator=(DecoderConfiguration&&) = delete;
+
    protected:
     EncodingModeId encoding_mode_ID;  //!< : 8; Line 4
 };

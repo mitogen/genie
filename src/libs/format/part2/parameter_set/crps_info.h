@@ -23,6 +23,12 @@ class CrpsInfo {
     CrpsInfo();
     virtual ~CrpsInfo() = default;
 
+    // TODO Jan check these
+    CrpsInfo(const CrpsInfo&) = delete;
+    CrpsInfo& operator=(const CrpsInfo&) = delete;
+    CrpsInfo(CrpsInfo&&) = default;
+    CrpsInfo& operator=(CrpsInfo&&) = delete;
+
     virtual void write(util::BitWriter *writer) const;
 };
 }  // namespace format

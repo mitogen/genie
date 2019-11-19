@@ -38,6 +38,13 @@ class ParameterSet : public DataUnit {
                  AlphabetID _alphabet_id, uint32_t _read_length, bool _paired_end, bool _pos_40_bits_flag,
                  uint8_t _qv_depth, uint8_t _as_depth, bool _multiple_alignments_flag, bool _spliced_reads_flag);
 
+    // TODO Jan check these
+    virtual ~ParameterSet() = delete;
+    ParameterSet(const ParameterSet&) = delete;
+    ParameterSet& operator=(const ParameterSet&) = delete;
+    ParameterSet(ParameterSet&&) = default;
+    ParameterSet& operator=(ParameterSet&&) = delete;
+
     void setCrps(std::unique_ptr<ParameterSetCrps> parameter_set_crps);
 
     void addClass(AuType class_id, std::unique_ptr<QvCodingConfig> conf);

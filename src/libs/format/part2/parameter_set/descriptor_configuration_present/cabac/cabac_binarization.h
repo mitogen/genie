@@ -29,6 +29,12 @@ class CabacBinarization {
 
     virtual ~CabacBinarization() = default;
 
+    // TODO Jan check these
+    CabacBinarization(const CabacBinarization&) = delete;
+    CabacBinarization& operator=(const CabacBinarization&) = delete;
+    CabacBinarization(CabacBinarization&&) = default;
+    CabacBinarization& operator=(CabacBinarization&&) = delete;
+
     void setContextParameters(std::unique_ptr<CabacContextParameters> _cabac_context_parameters);
 
     virtual void write(util::BitWriter *writer) const;

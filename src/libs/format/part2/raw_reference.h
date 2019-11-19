@@ -35,6 +35,12 @@ class RawReference : public DataUnit {
 
     virtual ~RawReference() = default;
 
+    // TODO Jan check these
+    RawReference(const RawReference&) = delete;
+    RawReference& operator=(const RawReference&) = delete;
+    RawReference(RawReference&&) = default;
+    RawReference& operator=(RawReference&&) = delete;
+
     void addSequence(std::unique_ptr<RawReferenceSequence> ref);
 
     std::unique_ptr<RawReference> clone() const;

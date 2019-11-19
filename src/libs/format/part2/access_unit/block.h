@@ -37,6 +37,13 @@ class Block {
     Block();
     Block(uint8_t _descriptor_ID, std::vector<uint8_t> *_payload);
     virtual ~Block() = default;
+
+    // TODO Jan check these
+    Block(const Block&) = delete;
+    Block& operator=(const Block&) = delete;
+    Block(Block&&) = delete;
+    Block& operator=(Block&&) = delete;
+
     virtual void write(util::BitWriter *writer);
     uint32_t getTotalSize();
 };

@@ -36,6 +36,12 @@ class TransformSubseqParameters {
 
     virtual ~TransformSubseqParameters() = default;
 
+    // TODO Jan check these
+    TransformSubseqParameters(const TransformSubseqParameters&) = delete;
+    TransformSubseqParameters& operator=(const TransformSubseqParameters&) = delete;
+    TransformSubseqParameters(TransformSubseqParameters&&) = default;
+    TransformSubseqParameters& operator=(TransformSubseqParameters&&) = delete;
+
     std::unique_ptr<TransformSubseqParameters> clone() const;
 
     size_t getNumStreams() const;

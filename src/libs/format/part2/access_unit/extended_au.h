@@ -24,6 +24,12 @@ class ExtendedAu {
     ExtendedAu(uint64_t _extended_AU_start_position, uint64_t _extended_AU_end_position, uint8_t _posSize);
     virtual ~ExtendedAu() = default;
 
+    // TODO Jan check these
+    ExtendedAu(const ExtendedAu&) = delete;
+    ExtendedAu& operator=(const ExtendedAu&) = delete;
+    ExtendedAu(ExtendedAu&&) = delete;
+    ExtendedAu& operator=(ExtendedAu&&) = delete;
+
     virtual void write(util::BitWriter *writer);
 };
 }  // namespace format

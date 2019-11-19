@@ -27,6 +27,12 @@ class RefCfg {
     RefCfg(uint8_t _posSize);
     virtual ~RefCfg() = default;
 
+    // TODO Jan check these
+    RefCfg(const RefCfg&) = delete;
+    RefCfg& operator=(const RefCfg&) = delete;
+    RefCfg(RefCfg&&) = delete;
+    RefCfg& operator=(RefCfg&&) = delete;
+
     virtual void write(util::BitWriter *writer);
 };
 }  // namespace format

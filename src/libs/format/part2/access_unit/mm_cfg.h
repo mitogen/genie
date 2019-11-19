@@ -25,6 +25,12 @@ class MmCfg {
     MmCfg();
     virtual ~MmCfg() = default;
 
+    // TODO Jan check these
+    MmCfg(const MmCfg&) = delete;
+    MmCfg& operator=(const MmCfg&) = delete;
+    MmCfg(MmCfg&&) = delete;
+    MmCfg& operator=(MmCfg&&) = delete;
+
     virtual void write(util::BitWriter *writer) const;
 };
 }  // namespace format

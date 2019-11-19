@@ -29,6 +29,12 @@ class DescriptorConfiguration {
 
     virtual ~DescriptorConfiguration() = default;
 
+    // TODO Jan check these
+    DescriptorConfiguration(const DescriptorConfiguration&) = delete;
+    DescriptorConfiguration& operator=(const DescriptorConfiguration&) = delete;
+    DescriptorConfiguration(DescriptorConfiguration&&) = default;
+    DescriptorConfiguration& operator=(DescriptorConfiguration&&) = delete;
+
    protected:
     DecCfgPreset dec_cfg_preset : 8;  //!< Line 2
 };

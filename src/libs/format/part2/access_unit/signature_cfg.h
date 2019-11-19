@@ -28,6 +28,12 @@ class SignatureCfg {
     SignatureCfg(uint64_t _U_cluster_signature_0, uint8_t _U_signature_size);
     virtual ~SignatureCfg() = default;
 
+    // TODO Jan check these
+    SignatureCfg(const SignatureCfg&) = delete;
+    SignatureCfg& operator=(const SignatureCfg&) = delete;
+    SignatureCfg(SignatureCfg&&) = delete;
+    SignatureCfg& operator=(SignatureCfg&&) = delete;
+
     void addSignature(uint64_t _U_cluster_signature);
     virtual void write(util::BitWriter *writer);
 };

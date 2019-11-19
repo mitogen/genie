@@ -23,6 +23,14 @@ class DescriptorConfigurationPresent : public DescriptorConfiguration {
    public:
     explicit DescriptorConfigurationPresent();
 
+    virtual ~DescriptorConfigurationPresent() = default;
+
+    // TODO Jan check these
+    DescriptorConfigurationPresent(const DescriptorConfigurationPresent&) = delete;
+    DescriptorConfigurationPresent& operator=(const DescriptorConfigurationPresent&) = delete;
+    DescriptorConfigurationPresent(DescriptorConfigurationPresent&&) = default;
+    DescriptorConfigurationPresent& operator=(DescriptorConfigurationPresent&&) = delete;
+
     std::unique_ptr<DescriptorConfiguration> clone() const override;
 
     void write(util::BitWriter *writer) const override;

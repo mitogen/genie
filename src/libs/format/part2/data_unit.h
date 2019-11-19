@@ -58,6 +58,13 @@ class DataUnit {
     explicit DataUnit(const DataUnitType &t);
 
     virtual void write(util::BitWriter *write) const;
+
+    // TODO Jan check these
+    virtual ~DataUnit() = default; // deleting caused a problem in parameter_set.h
+    DataUnit(const DataUnit&) = delete;
+    DataUnit& operator=(const DataUnit&) = delete;
+    DataUnit(DataUnit&&) = default;
+    DataUnit& operator=(DataUnit&&) = delete;
 };
 
 }  // namespace format

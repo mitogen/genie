@@ -35,6 +35,12 @@ class SupportValues {
 
     virtual ~SupportValues() = default;
 
+    // TODO Jan check these
+    SupportValues(const SupportValues&) = delete;
+    SupportValues& operator=(const SupportValues&) = delete;
+    SupportValues(SupportValues&&) = default;
+    SupportValues& operator=(SupportValues&&) = delete;
+
     std::unique_ptr<SupportValues> clone() const;
 
     virtual void write(util::BitWriter *writer) const;

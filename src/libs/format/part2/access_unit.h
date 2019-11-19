@@ -32,6 +32,13 @@ class AccessUnit : public DataUnit {
     AccessUnit(uint32_t _access_unit_ID, uint8_t _parameter_set_ID, AuType _au_type, uint32_t _reads_count,
                DatasetType dataset_type, uint8_t posSize, uint8_t signatureSize, uint32_t multiple_signature_base);
 
+    // TODO Jan check these
+    virtual ~AccessUnit() = delete;
+    AccessUnit(const AccessUnit&) = delete;
+    AccessUnit& operator=(const AccessUnit&) = delete;
+    AccessUnit(AccessUnit&&) = delete;
+    AccessUnit& operator=(AccessUnit&&) = delete;
+
     void addBlock(std::unique_ptr<Block> block);
 
     void setMmCfg(std::unique_ptr<MmCfg> cfg);

@@ -24,6 +24,14 @@ class DecoderConfigurationCabac : public DecoderConfiguration {
 
    public:
     explicit DecoderConfigurationCabac(GenomicDescriptor _desc);
+
+    // TODO Jan check these
+    virtual ~DecoderConfigurationCabac() = default;
+    DecoderConfigurationCabac(const DecoderConfigurationCabac&) = delete;
+    DecoderConfigurationCabac& operator=(const DecoderConfigurationCabac&) = delete;
+    DecoderConfigurationCabac(DecoderConfigurationCabac&&) = default;
+    DecoderConfigurationCabac& operator=(DecoderConfigurationCabac&&) = delete;
+
     void setSubsequenceCfg(uint8_t index, std::unique_ptr<TransformSubseqParameters> cfg);
     DescriptorSubsequenceCfg* getSubsequenceCfg(uint8_t index) const;
     std::unique_ptr<DecoderConfiguration> clone() const override;

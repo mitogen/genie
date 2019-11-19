@@ -23,6 +23,12 @@ class DescriptorConfigurationContainer {
     DescriptorConfigurationContainer();
     virtual ~DescriptorConfigurationContainer() = default;
 
+    // TODO Jan check these
+    DescriptorConfigurationContainer(const DescriptorConfigurationContainer&) = delete;
+    DescriptorConfigurationContainer& operator=(const DescriptorConfigurationContainer&) = delete;
+    DescriptorConfigurationContainer(DescriptorConfigurationContainer&&) = default;
+    DescriptorConfigurationContainer& operator=(DescriptorConfigurationContainer&&) = delete;
+
     void setConfig(uint8_t index, std::unique_ptr<DescriptorConfiguration> conf);  //!< For class specific config
     void setConfig(std::unique_ptr<DescriptorConfiguration> conf);                 //!< For non-class-specific config
     void enableClassSpecificConfigs(uint8_t numClasses);                           //!< Unlocks class specific config

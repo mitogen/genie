@@ -26,6 +26,12 @@ class QvCodebook {
     QvCodebook();
     virtual ~QvCodebook() = default;
 
+    // TODO Jan check these
+    QvCodebook(const QvCodebook&) = delete;
+    QvCodebook& operator=(const QvCodebook&) = delete;
+    QvCodebook(QvCodebook&&) = default;
+    QvCodebook& operator=(QvCodebook&&) = delete;
+
     void addEntry(uint8_t entry);
 
     virtual void write(util::BitWriter *writer) const;

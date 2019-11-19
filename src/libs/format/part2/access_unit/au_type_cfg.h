@@ -30,6 +30,12 @@ class AuTypeCfg {
     AuTypeCfg(uint8_t posSize);
     virtual ~AuTypeCfg() = default;
 
+    // TODO Jan check these
+    AuTypeCfg(const AuTypeCfg&) = delete;
+    AuTypeCfg& operator=(const AuTypeCfg&) = delete;
+    AuTypeCfg(AuTypeCfg&&) = delete;
+    AuTypeCfg& operator=(AuTypeCfg&&) = delete;
+
     void setExtendedAu(std::unique_ptr<ExtendedAu> _extended_AU);
 
     virtual void write(util::BitWriter *writer);

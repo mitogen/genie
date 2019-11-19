@@ -30,6 +30,12 @@ class TransformSubseqCfg {
 
     virtual ~TransformSubseqCfg() = default;
 
+    // TODO Jan check these
+    TransformSubseqCfg(const TransformSubseqCfg&) = delete;
+    TransformSubseqCfg& operator=(const TransformSubseqCfg&) = delete;
+    TransformSubseqCfg(TransformSubseqCfg&&) = default;
+    TransformSubseqCfg& operator=(TransformSubseqCfg&&) = delete;
+
     virtual void write(util::BitWriter *writer) const;
 
     std::unique_ptr<TransformSubseqCfg> clone() const;

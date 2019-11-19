@@ -27,6 +27,12 @@ class QvCodingConfig {
 
     virtual ~QvCodingConfig() = default;
 
+    // TODO Jan check these
+    QvCodingConfig(const QvCodingConfig&) = delete;
+    QvCodingConfig& operator=(const QvCodingConfig&) = delete;
+    QvCodingConfig(QvCodingConfig&&) = default;
+    QvCodingConfig& operator=(QvCodingConfig&&) = delete;
+
     QvCodingConfig(QvCodingMode _qv_coding_mode, bool _qv_reverse_flag);
 
    protected:

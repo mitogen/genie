@@ -47,6 +47,11 @@ class CabacBinarizationParameters {
 
     virtual ~CabacBinarizationParameters() = default;
 
+    // TODO Jan check these
+    CabacBinarizationParameters& operator=(const CabacBinarizationParameters&) = delete;
+    CabacBinarizationParameters(CabacBinarizationParameters&&) = default;
+    CabacBinarizationParameters& operator=(CabacBinarizationParameters&&) = delete;
+
     std::unique_ptr<CabacBinarizationParameters> clone() const;
 };
 }  // namespace cabac

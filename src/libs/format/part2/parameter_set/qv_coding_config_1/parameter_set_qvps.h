@@ -28,6 +28,12 @@ class ParameterSetQvps {
     ParameterSetQvps();
     virtual ~ParameterSetQvps() = default;
 
+    // TODO Jan check these
+    ParameterSetQvps(const ParameterSetQvps&) = delete;
+    ParameterSetQvps& operator=(const ParameterSetQvps&) = delete;
+    ParameterSetQvps(ParameterSetQvps&&) = default;
+    ParameterSetQvps& operator=(ParameterSetQvps&&) = delete;
+
     void addCodeBook(const QvCodebook &book);
     virtual void write(util::BitWriter *writer) const;
 };

@@ -32,6 +32,14 @@ class QvCodingConfig1 : public QvCodingConfig {
 
     explicit QvCodingConfig1(QvpsPresetId _qvps_preset_ID, bool _reverse_flag);
 
+    virtual ~QvCodingConfig1() = default;
+
+    // TODO Jan check these
+    QvCodingConfig1(const QvCodingConfig1&) = delete;
+    QvCodingConfig1& operator=(const QvCodingConfig1&) = delete;
+    QvCodingConfig1(QvCodingConfig1&&) = default;
+    QvCodingConfig1& operator=(QvCodingConfig1&&) = delete;
+
     void setQvps(std::unique_ptr<ParameterSetQvps> _parameter_set_qvps);
 
     void write(util::BitWriter *writer) const override;
