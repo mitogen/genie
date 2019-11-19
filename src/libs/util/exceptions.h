@@ -17,6 +17,12 @@ class Exception : public std::exception {
 
     ~Exception() noexcept override;
 
+    // TODO Jan check these
+    Exception(const Exception&) = delete;
+    Exception& operator=(const Exception&) = delete;
+    Exception(Exception&&) = default;
+    Exception& operator=(Exception&&) = delete;
+
     virtual std::string msg() const;
 
     const char *what() const noexcept override;
@@ -33,6 +39,11 @@ class RuntimeException : public Exception {
     RuntimeException(const RuntimeException &e) noexcept;
 
     ~RuntimeException() noexcept override;
+
+    // TODO Jan check these
+    RuntimeException& operator=(const RuntimeException&) = delete;
+    RuntimeException(RuntimeException&&) = default;
+    RuntimeException& operator=(RuntimeException&&) = delete;
 };
 
 }  // namespace util

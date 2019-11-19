@@ -12,6 +12,13 @@ class FastqFileReader : public FileReader {
    public:
     FastqFileReader(const std::string &path);
     ~FastqFileReader();
+
+    // TODO Jan check these
+    FastqFileReader(const FastqFileReader&) = delete;
+    FastqFileReader& operator=(const FastqFileReader&) = delete;
+    FastqFileReader(FastqFileReader&&) = default;
+    FastqFileReader& operator=(FastqFileReader&&) = delete;
+
     size_t readRecords(const size_t numRecords, std::vector<FastqRecord> *const records);
 };
 

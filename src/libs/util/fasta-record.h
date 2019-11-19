@@ -10,6 +10,12 @@ struct FastaRecord {
     FastaRecord(std::string header, std::string sequence);
     ~FastaRecord();
 
+    // TODO Jan check these
+    FastaRecord(const FastaRecord&) = delete;
+    FastaRecord& operator=(const FastaRecord&) = delete;
+    FastaRecord(FastaRecord&&) = default;
+    FastaRecord& operator=(FastaRecord&&) = delete;
+
    public:
     std::string header;
     std::string sequence;

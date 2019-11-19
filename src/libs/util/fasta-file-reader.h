@@ -14,6 +14,12 @@ class FastaFileReader : public FileReader {
 
     ~FastaFileReader();
 
+    // TODO Jan check these
+    FastaFileReader(const FastaFileReader&) = delete;
+    FastaFileReader& operator=(const FastaFileReader&) = delete;
+    FastaFileReader(FastaFileReader&&) = default;
+    FastaFileReader& operator=(FastaFileReader&&) = delete;
+
     void parse(std::vector<FastaRecord> *const fastaRecords);
 };
 

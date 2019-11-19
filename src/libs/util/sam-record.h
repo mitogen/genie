@@ -12,6 +12,13 @@ struct SamRecord {
     SamRecord(const std::vector<std::string> &fields);
     SamRecord();
     ~SamRecord();
+
+    // TODO Jan check these
+    SamRecord(const SamRecord&) = delete;
+    SamRecord& operator=(const SamRecord&) = delete;
+    SamRecord(SamRecord&&) = default;
+    SamRecord& operator=(SamRecord&&) = delete;
+
     std::string str() const;
 
    public:

@@ -27,6 +27,12 @@ namespace util {
 
         ~BitWriter();
 
+        // TODO Jan check these
+        BitWriter(const BitWriter&) = delete;
+        BitWriter& operator=(const BitWriter&) = delete;
+        BitWriter(BitWriter&&) = default;
+        BitWriter& operator=(BitWriter&&) = delete;
+
         void write(uint64_t value, uint8_t bits);
         void write(std::istream *in);
 

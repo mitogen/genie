@@ -14,6 +14,12 @@ class FileReader {
 
     virtual ~FileReader();
 
+    // TODO Jan check these
+    FileReader(const FileReader&) = delete;
+    FileReader& operator=(const FileReader&) = delete;
+    FileReader(FileReader&&) = default;
+    FileReader& operator=(FileReader&&) = delete;
+
     void advance(int64_t offset);
 
     bool eof() const;

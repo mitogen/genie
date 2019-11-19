@@ -12,6 +12,13 @@ class SamFileReader : public FileReader {
    public:
     explicit SamFileReader(const std::string &path);
     ~SamFileReader() override;
+
+    // TODO Jan check these
+    SamFileReader(const SamFileReader&) = delete;
+    SamFileReader& operator=(const SamFileReader&) = delete;
+    SamFileReader(SamFileReader&&) = default;
+    SamFileReader& operator=(SamFileReader&&) = delete;
+
     size_t readRecords(size_t numRecords, std::list<SamRecord> *records);
 
    public:
