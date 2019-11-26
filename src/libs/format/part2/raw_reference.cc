@@ -2,7 +2,6 @@
 #include "make_unique.h"
 #include "util/bitwriter.h"
 
-
 #include <sstream>
 // -----------------------------------------------------------------------------------------------------------------
 
@@ -16,7 +15,7 @@ RawReference::RawReference() : DataUnit(DataUnitType::RAW_REFERENCE), seqs(0) {}
 void RawReference::addSequence(std::unique_ptr<RawReferenceSequence> ref) {
     for (const auto &a : seqs) {
         if (!a->isIdUnique(ref.get())) {
-            GENIE_THROW_RUNTIME_EXCEPTION("Reference ID is not unique");
+            UTILS_THROW_RUNTIME_EXCEPTION("Reference ID is not unique");
         }
     }
     seqs.push_back(std::move(ref));

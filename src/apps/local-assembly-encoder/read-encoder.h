@@ -5,26 +5,31 @@
 #include <string>
 #include <vector>
 #include <util/sam-record.h>
+#include "format/part2/data_unit.h"
 #include "stream-container.h"
 
 namespace lae {
     class LocalAssemblyReadEncoder {
     private:
         std::unique_ptr<StreamContainer> container;
-        uint32_t pos;
-        void codeVariants(const std::string &read, const std::string &cigar, const std::string& ref);
-        uint64_t pop(std::vector<uint64_t>* vec);
+        int32_t pos;
+        uint32_t readCounter;
+        void codeVariants(const std::string &read, const std::string &cigar, const std::string& ref, format::DataUnit::AuType type, bool isFirst);
+
+        format::DataUnit::AuType getClass(const std::string &read, const std::string &cigar, const std::string &ref);
+
+        void addSingleRead(const util::SamRecord& rec, format::DataUnit::AuType type);
     public:
         explicit LocalAssemblyReadEncoder();
 
+        format::DataUnit::AuType addRead(const util::SamRecord& rec, const std::string& ref);
+        format::DataUnit::AuType addPair(const util::SamRecord& rec1, const std::string& ref1, const util::SamRecord& rec2, const std::string& ref2);
         // TODO Jan check these
         virtual ~LocalAssemblyReadEncoder() = default;
         LocalAssemblyReadEncoder(const LocalAssemblyReadEncoder&) = delete;
         LocalAssemblyReadEncoder& operator=(const LocalAssemblyReadEncoder&) = delete;
         LocalAssemblyReadEncoder(LocalAssemblyReadEncoder&&) = delete;
         LocalAssemblyReadEncoder& operator=(LocalAssemblyReadEncoder&&) = delete;
-
-        void addRead(const util::SamRecord& rec, const std::string& ref);
 
         std::unique_ptr<StreamContainer> pollStreams();
     };

@@ -64,6 +64,7 @@ class DataBlockBuffer : public std::streambuf {
     DataBlockBuffer& operator=(DataBlockBuffer&&) = delete;
 
     size_t size() const;
+
    protected:
     int overflow(int c) override;
     std::streamsize xsputn(const char *s, std::streamsize n) override;

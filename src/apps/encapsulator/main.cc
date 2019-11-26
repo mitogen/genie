@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include "FileHandlingUtils.h"
 #include "exceptions.h"
 #include "program-options.h"
 
@@ -25,6 +26,9 @@ static int encapsulator_main(int argc, char* argv[]) {
             return 0;
         }
         std::cout << "command line: " + commandLineStr(argc, argv) << std::endl;
+
+        createMPEGGFileNoMITFromByteStream(programOptions.inputFilePath.c_str(), nullptr);
+
     } catch (const encapsulator::RuntimeError& runtimeError) {
         std::cerr << "error: encapsulator: " << runtimeError.what() << std::endl;
         return -1;

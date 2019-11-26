@@ -1,8 +1,6 @@
 #include "cabac_binarization_parameters.h"
-#include "util/bitwriter.h"
 #include "../../../make_unique.h"
 #include "util/bitwriter.h"
-
 
 // -----------------------------------------------------------------------------------------------------------------
 
@@ -46,7 +44,7 @@ CabacBinarizationParameters::CabacBinarizationParameters(const BinarizationId &_
         case BinarizationId::SIGNED_EXPONENTIAL_GOMB:
             break;
         default:
-            GENIE_THROW_RUNTIME_EXCEPTION("Binarization not supported");
+            UTILS_THROW_RUNTIME_EXCEPTION("Binarization not supported");
     }
 }
 

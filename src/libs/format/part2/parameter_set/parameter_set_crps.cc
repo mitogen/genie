@@ -1,9 +1,7 @@
 #include "parameter_set_crps.h"
-#include <ureads-encoder/exceptions.h>
-#include "util/bitwriter.h"
 #include "../make_unique.h"
 #include "util/bitwriter.h"
-
+#include "util/exceptions.h"
 
 // -----------------------------------------------------------------------------------------------------------------
 
@@ -18,7 +16,7 @@ ParameterSetCrps::ParameterSetCrps(CrAlgId _cr_alg_ID) : cr_alg_ID(_cr_alg_ID) {
 
 void ParameterSetCrps::setCrpsInfo(std::unique_ptr<CrpsInfo> _crps_info) {
     if (!crps_info) {
-        GENIE_THROW_RUNTIME_EXCEPTION("Invalid crps mode for crps info");
+        UTILS_THROW_RUNTIME_EXCEPTION("Invalid crps mode for crps info");
     }
     crps_info = std::move(_crps_info);
 }

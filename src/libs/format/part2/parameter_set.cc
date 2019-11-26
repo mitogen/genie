@@ -1,5 +1,5 @@
 #include "parameter_set.h"
-#include "ureads-encoder/exceptions.h"
+#include "util/exceptions.h"
 
 #include <sstream>
 
@@ -7,12 +7,28 @@
 #include "parameter_set/descriptor_configuration.h"
 #include "parameter_set/descriptor_configuration_container.h"
 #include "parameter_set/qv_coding_config.h"
+#include "util/bitreader.h"
 #include "util/bitwriter.h"
-
 
 // -----------------------------------------------------------------------------------------------------------------
 
 namespace format {
+ParameterSet::ParameterSet(util::BitReader *bitReader)  // needs to be called by format::DataUnit::createFromBitReader
+    : DataUnit(DataUnitType::PARAMETER_SET) {
+    uint32_t buffer;
+    bitReader->skipNBits(10);  // ISO 23092-2 Section 3.1 table 3
+    bitReader->readNBitsDec(22, &buffer);
+    this->setDataUnitSize(buffer);
+
+    for (uint32_t i = 0; i < (this->getDataUnitSize() - 5);
+         ++i) {  //-5 for DataUnitSize(4 byte) & Type(1 byte) ISO 23092-2 Section 3.1 table 3
+        bitReader->readNBitsDec(8, &buffer);
+        rawData.push_back(buffer);
+    }
+}
+
+// -----------------------------------------------------------------------------------------------------------------
+
 ParameterSet::ParameterSet(uint8_t _parameter_set_ID, uint8_t _parent_parameter_set_ID, DatasetType _dataset_type,
                            AlphabetID _alphabet_id, uint32_t _read_length, bool _paired_end, bool _pos_40_bits_flag,
                            uint8_t _qv_depth, uint8_t _as_depth, bool _multiple_alignments_flag,
@@ -119,12 +135,12 @@ void ParameterSet::setCrps(std::unique_ptr<ParameterSetCrps> _parameter_set_crps
 void ParameterSet::addClass(AuType class_id, std::unique_ptr<QvCodingConfig> conf) {
     for (auto &a : descriptors) {
         if (a->isClassSpecific()) {
-            GENIE_THROW_RUNTIME_EXCEPTION("Adding classes not allowed once class specific descriptor configs enabled");
+            UTILS_THROW_RUNTIME_EXCEPTION("Adding classes not allowed once class specific descriptor configs enabled");
         }
     }
     for (auto &a : class_IDs) {
         if (class_id == a) {
-            GENIE_THROW_RUNTIME_EXCEPTION("Class already added");
+            UTILS_THROW_RUNTIME_EXCEPTION("Class already added");
         }
     }
     class_IDs.push_back(class_id);

@@ -1,7 +1,7 @@
 #include <string>
 
-#include "exceptions.h"
 #include "fastq-file-reader.h"
+#include "util/exceptions.h"
 
 namespace genie {
 
@@ -26,19 +26,19 @@ size_t FastqFileReader::readRecords(const size_t numRecords, std::vector<FastqRe
 
         readLine(&line);
         if (line.empty()) {
-            GENIE_DIE("truncated FASTQ record");
+            UTILS_DIE("truncated FASTQ record");
         }
         fastqRecord.sequence = line;
 
         readLine(&line);
         if (line.empty()) {
-            GENIE_DIE("truncated FASTQ record");
+            UTILS_DIE("truncated FASTQ record");
         }
         fastqRecord.optional = line;
 
         readLine(&line);
         if (line.empty()) {
-            GENIE_DIE("truncated FASTQ record");
+            UTILS_DIE("truncated FASTQ record");
         }
         fastqRecord.qualityScores = line;
 

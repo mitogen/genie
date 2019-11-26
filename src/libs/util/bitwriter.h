@@ -8,24 +8,24 @@
 
 // -----------------------------------------------------------------------------------------------------------------
 
-#include "ureads-encoder/exceptions.h"
+#include "exceptions.h"
 
 // -----------------------------------------------------------------------------------------------------------------
 
 namespace util {
-    class BitWriter {
-    private:
-        std::ostream *stream;
-        uint64_t m_heldBits;
-        uint8_t m_numHeldBits;
-        uint64_t m_bitsWritten;
+class BitWriter {
+   private:
+    std::ostream *stream;
+    uint64_t m_heldBits;
+    uint8_t m_numHeldBits;
+    uint64_t m_bitsWritten;
 
-        void writeOut(uint8_t byte);
+    void writeOut(uint8_t byte);
 
-    public:
-        explicit BitWriter(std::ostream *str);
+   public:
+    explicit BitWriter(std::ostream *str);
 
-        ~BitWriter();
+    ~BitWriter();
 
         // TODO Jan check these
         BitWriter(const BitWriter&) = delete;
@@ -36,11 +36,11 @@ namespace util {
         void write(uint64_t value, uint8_t bits);
         void write(std::istream *in);
 
-        void flush();
+    void flush();
 
-        uint64_t getBitsWritten();
-    };
-}
+    uint64_t getBitsWritten();
+};
+}  // namespace util
 
 // -----------------------------------------------------------------------------------------------------------------
 

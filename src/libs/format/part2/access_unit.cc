@@ -1,7 +1,6 @@
 #include "access_unit.h"
-#include "ureads-encoder/exceptions.h"
 #include "util/bitwriter.h"
-
+#include "util/exceptions.h"
 
 #include <gabac/data-block.h>
 #include <sstream>
@@ -9,6 +8,20 @@
 // -----------------------------------------------------------------------------------------------------------------
 
 namespace format {
+AccessUnit::AccessUnit(util::BitReader *bitReader)  // needs to be called by format::DataUnit::createFromBitReader
+    : DataUnit(DataUnitType::ACCESS_UNIT) {
+    uint32_t buffer;
+    bitReader->skipNBits(3);  // ISO 23092-2 Section 3.1 table 3
+    bitReader->readNBitsDec(29, &buffer);
+    this->setDataUnitSize(buffer);
+
+    for (uint32_t i = 0; i < (this->getDataUnitSize() - 5);
+         ++i) {  //-5 for DataUnitSize(4 byte) & Type(1 byte) ISO 23092-2 Section 3.1 table 3
+        bitReader->readNBitsDec(8, &buffer);
+        rawData.push_back(buffer);
+    }
+}
+
 AccessUnit::AccessUnit(uint32_t _access_unit_ID, uint8_t _parameter_set_ID, AuType _au_type, uint32_t _reads_count,
                        DatasetType dataset_type, uint8_t posSize, uint8_t signatureSize,
                        uint32_t multiple_signature_base)
@@ -42,28 +55,28 @@ AccessUnit::AccessUnit(uint32_t _access_unit_ID, uint8_t _parameter_set_ID, AuTy
 
 void AccessUnit::setMmCfg(std::unique_ptr<MmCfg> cfg) {
     if (!mm_cfg) {
-        GENIE_THROW_RUNTIME_EXCEPTION("MmCfg not valid for this access unit");
+        UTILS_THROW_RUNTIME_EXCEPTION("MmCfg not valid for this access unit");
     }
     mm_cfg = std::move(cfg);
 }
 
 void AccessUnit::setRefCfg(std::unique_ptr<RefCfg> cfg) {
     if (!ref_cfg) {
-        GENIE_THROW_RUNTIME_EXCEPTION("RefCfg not valid for this access unit");
+        UTILS_THROW_RUNTIME_EXCEPTION("RefCfg not valid for this access unit");
     }
     ref_cfg = std::move(cfg);
 }
 
 void AccessUnit::setAuTypeCfg(std::unique_ptr<AuTypeCfg> cfg) {
     if (!au_Type_U_Cfg) {
-        GENIE_THROW_RUNTIME_EXCEPTION("au_type_u_cfg not valid for this access unit");
+        UTILS_THROW_RUNTIME_EXCEPTION("au_type_u_cfg not valid for this access unit");
     }
     au_Type_U_Cfg = std::move(cfg);
 }
 
 void AccessUnit::setSignatureCfg(std::unique_ptr<SignatureCfg> cfg) {
     if (!signature_config) {
-        GENIE_THROW_RUNTIME_EXCEPTION("signature config not valid for this access unit");
+        UTILS_THROW_RUNTIME_EXCEPTION("signature config not valid for this access unit");
     }
     signature_config = std::move(cfg);
 }
