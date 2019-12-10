@@ -1,8 +1,8 @@
 #ifndef SPRING_DECOMPRESS_H_
 #define SPRING_DECOMPRESS_H_
 
-#include <genie/stream-saver.h>
 #include <format/fastq/fastq-record.h>
+#include <genie/stream-saver.h>
 #include <map>
 #include <string>
 #include <vector>

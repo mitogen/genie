@@ -4,8 +4,8 @@
  */
 
 #include "FileHandlingUtils.h"
-#include "format/mpegg_p2/parameter_set.h"
 #include "format/mpegg_p1/dataset.h"
+#include "format/mpegg_p2/parameter_set.h"
 
 // DatasetHeader *
 // initDatasetHeaderNoMIT(DatasetGroupId datasetGroupId, DatasetId datasetId, char *version, bool multipleAlignmentFlag,
@@ -93,7 +93,7 @@ int createMPEGGFileNoMITFromByteStream(const char* fileName, char* outputFileNam
 
     std::ifstream inputFilestream;
     inputFilestream.open(fileName, std::ios::binary);
-    if(!inputFilestream.good()){
+    if (!inputFilestream.good()) {
         fprintf(stderr, "File could not be opened!\n");
         return -1;
     }
@@ -139,7 +139,7 @@ int createMPEGGFileNoMITFromByteStream(const char* fileName, char* outputFileNam
     // - AccessUnit[]
 
     std::vector<std::unique_ptr<format::mpegg_p1::Dataset>> datasets;
-    datasets.push_back(format::mpegg_p1::Dataset::createFromDataUnits(&dataUnits)); //TODO call by pointer
+    datasets.push_back(format::mpegg_p1::Dataset::createFromDataUnits(&dataUnits));  // TODO call by pointer
 
     // DatasetGroup consists of:
     // - DatasetGroupHeader
@@ -379,9 +379,9 @@ int createMPEGGFileNoMITFromByteStream(const char* fileName, char* outputFileNam
     //                getDataUnitAccessUnitId(dataUnitAccessUnit, &accessUnitId) != 0 ||
     //                getDataUnitNumBlocks(dataUnitAccessUnit, &numBlocks) != 0 ||
     //                getDataUnitParameterSetId(dataUnitAccessUnit, &parameterSetId) != 0 ||
-    //                getDataUnitmpegg_rec::MpeggRecord::ClassType(dataUnitAccessUnit, &mpegg_rec::MpeggRecord::ClassType) != 0 ||
-    //                getDataUnitReadsCount(dataUnitAccessUnit, &readsCount) != 0 ||
-    //                getDataUnitMMThreshold(dataUnitAccessUnit, &mmThreshold) != 0 ||
+    //                getDataUnitmpegg_rec::MpeggRecord::ClassType(dataUnitAccessUnit,
+    //                &mpegg_rec::MpeggRecord::ClassType) != 0 || getDataUnitReadsCount(dataUnitAccessUnit, &readsCount)
+    //                != 0 || getDataUnitMMThreshold(dataUnitAccessUnit, &mmThreshold) != 0 ||
     //                getDataUnitMMCount(dataUnitAccessUnit, &mmCount) != 0 ||
     //                getDataUnitSequenceId(dataUnitAccessUnit, &sequenceId) != 0 ||
     //                getDataUnitAuStartPosition(dataUnitAccessUnit, &auStartPosition) != 0 ||

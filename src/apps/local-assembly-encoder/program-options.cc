@@ -25,15 +25,15 @@ void ProgramOptions::processCommandLine(int argc, char *argv[]) {
         DIE("Program options error: " + std::to_string(app.exit(e)));
     }
 
-    if(typeString == "U") {
+    if (typeString == "U") {
         type = format::mpegg_rec::MpeggRecord::ClassType::CLASS_U;
-    } else if(typeString == "P") {
+    } else if (typeString == "P") {
         type = format::mpegg_rec::MpeggRecord::ClassType::CLASS_P;
-    } else if(typeString == "N") {
+    } else if (typeString == "N") {
         type = format::mpegg_rec::MpeggRecord::ClassType::CLASS_N;
-    } else if(typeString == "M") {
+    } else if (typeString == "M") {
         type = format::mpegg_rec::MpeggRecord::ClassType::CLASS_M;
-    } else if(typeString == "I") {
+    } else if (typeString == "I") {
         type = format::mpegg_rec::MpeggRecord::ClassType::CLASS_I;
     } else {
         DIE("Invalid AU Type");
@@ -44,7 +44,7 @@ void ProgramOptions::processCommandLine(int argc, char *argv[]) {
     }
 
     if (ghc::filesystem::exists(ghc::filesystem::path(outputFilePath))) {
-   //     DIE("Output file exists already: " + outputFilePath);
+        //     DIE("Output file exists already: " + outputFilePath);
     }
 }
 

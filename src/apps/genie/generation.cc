@@ -16,15 +16,15 @@
 #include <string>
 #include <thread>
 #include <vector>
-#include "spring/decompress.h"
-#include "spring/spring.h"
-#include "util/exceptions.h"
 #include "format/fasta/fasta-file-reader.h"
 #include "format/fasta/fasta-record.h"
 #include "format/fastq/fastq-file-reader.h"
 #include "format/fastq/fastq-record.h"
 #include "format/sam/sam-file-reader.h"
 #include "format/sam/sam-record.h"
+#include "spring/decompress.h"
+#include "spring/spring.h"
+#include "util/exceptions.h"
 
 namespace dsg {
 
@@ -38,17 +38,17 @@ static void generationFromFastq_SPRING(const ProgramOptions &programOptions, con
     format::fastq::FastqFileReader fastqFileReader1(programOptions.inputFilePath);
     std::cout << "Calling SPRING" << std::endl;
     if (programOptions.inputFilePairPath.empty()) {
-        spring::generate_streams_SPRING(&fastqFileReader1, &fastqFileReader1, programOptions.numThreads,
-                                               paired_end, programOptions.workingDirectory, programOptions.analyze, filename,
-                                               programOptions.preserve_order, !programOptions.discard_quality,
-                                               !programOptions.discard_ids);
+        spring::generate_streams_SPRING(&fastqFileReader1, &fastqFileReader1, programOptions.numThreads, paired_end,
+                                        programOptions.workingDirectory, programOptions.analyze, filename,
+                                        programOptions.preserve_order, !programOptions.discard_quality,
+                                        !programOptions.discard_ids);
     } else {
         paired_end = true;
         format::fastq::FastqFileReader fastqFileReader2(programOptions.inputFilePairPath);
-        spring::generate_streams_SPRING(&fastqFileReader1, &fastqFileReader2, programOptions.numThreads,
-                                               paired_end, programOptions.workingDirectory, programOptions.analyze, filename,
-                                               programOptions.preserve_order, !programOptions.discard_quality,
-                                               !programOptions.discard_ids);
+        spring::generate_streams_SPRING(&fastqFileReader1, &fastqFileReader2, programOptions.numThreads, paired_end,
+                                        programOptions.workingDirectory, programOptions.analyze, filename,
+                                        programOptions.preserve_order, !programOptions.discard_quality,
+                                        !programOptions.discard_ids);
     }
 }
 
@@ -89,8 +89,8 @@ static void generationFromFastq(const ProgramOptions &programOptions) {
     //     throw std::runtime_error("Could not open output file: " + filename);
     // }
 
-//    dsg::StreamSaver store(programOptions.configPath, &output, nullptr, programOptions.gabacDebug);
-//    auto generated_aus = generationFromFastq_SPRING(programOptions, store);
+    //    dsg::StreamSaver store(programOptions.configPath, &output, nullptr, programOptions.gabacDebug);
+    //    auto generated_aus = generationFromFastq_SPRING(programOptions, store);
     generationFromFastq_SPRING(programOptions, filename);
 }
 

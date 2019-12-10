@@ -4,30 +4,24 @@
 #include <cstdint>
 
 namespace util {
-    class BitWriter;
-    class BitReader;
-}
+class BitWriter;
+class BitReader;
+}  // namespace util
 
 namespace format {
-    namespace mpegg_rec {
-        class SplitAlignment {
-        public:
-            enum class SplitAlignmentType : uint8_t {
-                SAME_REC = 0,
-                OTHER_REC = 1,
-                UNPAIRED = 2
-            };
+namespace mpegg_rec {
+class SplitAlignment {
+   public:
+    enum class SplitAlignmentType : uint8_t { SAME_REC = 0, OTHER_REC = 1, UNPAIRED = 2 };
 
-            explicit SplitAlignment(SplitAlignmentType _split_alignment);
+    explicit SplitAlignment(SplitAlignmentType _split_alignment);
 
-            virtual ~SplitAlignment() = default;
+    virtual ~SplitAlignment() = default;
 
-        private:
-            SplitAlignmentType split_alignment : 8;
+   private:
+    SplitAlignmentType split_alignment : 8;
+};
+}  // namespace mpegg_rec
+}  // namespace format
 
-        };
-    }
-}
-
-
-#endif //GENIE_SPLIT_ALIGNMENT_H
+#endif  // GENIE_SPLIT_ALIGNMENT_H

@@ -7,33 +7,29 @@
 #include <vector>
 
 namespace util {
-    class BitWriter;
+class BitWriter;
 
-    class BitReader;
-}
+class BitReader;
+}  // namespace util
 
 namespace format {
-    namespace mpegg_rec {
-        class Alignment {
-            uint32_t ecigar_len : 24;
-            std::unique_ptr<std::string> ecigar_string;
-            uint8_t reverse_comp : 8;
+namespace mpegg_rec {
+class Alignment {
+    uint32_t ecigar_len : 24;
+    std::unique_ptr<std::string> ecigar_string;
+    uint8_t reverse_comp : 8;
 
-            // for (as=0; as < as_depth; as++)
-            std::vector<int32_t> mapping_score;
+    // for (as=0; as < as_depth; as++)
+    std::vector<int32_t> mapping_score;
 
-        public:
-            Alignment(
-                    std::unique_ptr<std::string> _ecigar_string,
-                    uint8_t _reverse_comp
-            );
+   public:
+    Alignment(std::unique_ptr<std::string> _ecigar_string, uint8_t _reverse_comp);
 
-            size_t getAsDepth() const;
+    size_t getAsDepth() const;
 
-            void addMappingScore(int32_t score);
-        };
-    }
-}
+    void addMappingScore(int32_t score);
+};
+}  // namespace mpegg_rec
+}  // namespace format
 
-
-#endif //GENIE_ALIGNMENT_H
+#endif  // GENIE_ALIGNMENT_H

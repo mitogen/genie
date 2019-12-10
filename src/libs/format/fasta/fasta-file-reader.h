@@ -7,18 +7,18 @@
 #include "util/file-reader.h"
 
 namespace format {
-    namespace fasta {
+namespace fasta {
 
-    class FastaFileReader : public util::FileReader {
-        public:
-            FastaFileReader(const std::string &path);
+class FastaFileReader : public util::FileReader {
+   public:
+    FastaFileReader(const std::string &path);
 
-            ~FastaFileReader();
+    ~FastaFileReader();
 
-            void parse(std::vector<FastaRecord> *const fastaRecords);
-        };
+    void parse(std::vector<FastaRecord> *const fastaRecords);
+};
 
-    }
-}  // namespace util
+}  // namespace fasta
+}  // namespace format
 
 #endif  // UTIL_FASTA_FILE_READER_H_

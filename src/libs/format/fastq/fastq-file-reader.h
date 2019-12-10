@@ -8,18 +8,18 @@
 #include "util/perf-stats.h"
 
 namespace format {
-    namespace fastq {
+namespace fastq {
 
-    class FastqFileReader : public util::FileReader {
-        public:
-            FastqFileReader(const std::string &path/*, FastqStats *_stats*/);
+class FastqFileReader : public util::FileReader {
+   public:
+    FastqFileReader(const std::string &path /*, FastqStats *_stats*/);
 
-            ~FastqFileReader();
+    ~FastqFileReader();
 
-            size_t readRecords(const size_t numRecords, std::vector<FastqRecord> *const records);
-        };
+    size_t readRecords(const size_t numRecords, std::vector<FastqRecord> *const records);
+};
 
-    }  // namespace util
-}
+}  // namespace fastq
+}  // namespace format
 
 #endif  // UTIL_FASTQ_FILE_READER_H_

@@ -1,5 +1,5 @@
-#include <gtest/gtest.h>
 #include <format/fastq/fastq-file-reader.h>
+#include <gtest/gtest.h>
 #include "helpers.h"
 
 TEST(FastqFileReader, Simplest) {  // NOLINT(cert-err-cpp)
@@ -60,7 +60,8 @@ TEST(FastqFileReader, BlankLine) {  // NOLINT(cert-err-cpp)
 TEST(FastqFileReader, Truncated) {  // NOLINT(cert-err-cpp)
     std::string gitRootDir = util_tests::exec("git rev-parse --show-toplevel");
 
-    format::fastq::FastqFileReader reader(gitRootDir + "/resources/test-files/fastq/fourteen-gattaca-records-truncated.fastq");
+    format::fastq::FastqFileReader reader(gitRootDir +
+                                          "/resources/test-files/fastq/fourteen-gattaca-records-truncated.fastq");
 
     std::vector<format::fastq::FastqRecord> records;
     EXPECT_THROW(reader.readRecords(14, &records), std::runtime_error);

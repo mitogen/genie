@@ -3,28 +3,28 @@
 
 #include <list>
 #include <string>
-#include "util/file-reader.h"
 #include "sam-record.h"
+#include "util/file-reader.h"
 
 namespace format {
-    namespace sam {
+namespace sam {
 
-    class SamFileReader : public util::FileReader {
-        public:
-            explicit SamFileReader(const std::string &path);
+class SamFileReader : public util::FileReader {
+   public:
+    explicit SamFileReader(const std::string &path);
 
-            ~SamFileReader() override;
+    ~SamFileReader() override;
 
-            size_t readRecords(size_t numRecords, std::list<SamRecord> *records);
+    size_t readRecords(size_t numRecords, std::list<SamRecord> *records);
 
-        public:
-            std::string header;
+   public:
+    std::string header;
 
-        private:
-            void readHeader();
-        };
+   private:
+    void readHeader();
+};
 
-    }
-}  // namespace util
+}  // namespace sam
+}  // namespace format
 
 #endif  // UTIL_SAM_FILE_READER_H_

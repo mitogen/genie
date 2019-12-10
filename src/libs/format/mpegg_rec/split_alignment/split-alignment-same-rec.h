@@ -8,25 +8,21 @@
 #include "split-alignment.h"
 
 namespace util {
-    class BitWriter;
+class BitWriter;
 
-    class BitReader;
-}
+class BitReader;
+}  // namespace util
 
 namespace format {
-    namespace mpegg_rec {
-        class SplitAlignmentSameRec : public SplitAlignment {
-            int64_t delta : 48;
-            std::unique_ptr<Alignment> alignment;
+namespace mpegg_rec {
+class SplitAlignmentSameRec : public SplitAlignment {
+    int64_t delta : 48;
+    std::unique_ptr<Alignment> alignment;
 
-        public:
-            SplitAlignmentSameRec(
-                    int64_t _delta,
-                    std::unique_ptr<Alignment> _alignment
-            );
-        };
-    }
-}
+   public:
+    SplitAlignmentSameRec(int64_t _delta, std::unique_ptr<Alignment> _alignment);
+};
+}  // namespace mpegg_rec
+}  // namespace format
 
-
-#endif //GENIE_SPLIT_ALIGNMENT_SAME_REC_H
+#endif  // GENIE_SPLIT_ALIGNMENT_SAME_REC_H

@@ -4,32 +4,29 @@
 #include <cstdint>
 
 namespace util {
-    class BitWriter;
+class BitWriter;
 
-    class BitReader;
-}
+class BitReader;
+}  // namespace util
 
 namespace format {
-    namespace mpegg_rec {
-        class MetaAlignment {
-            uint16_t seq_ID : 16;
-            uint8_t as_depth : 8;
-        public:
-            MetaAlignment(
-                    uint16_t _seq_ID,
-                    uint8_t _as_depth
-            );
+namespace mpegg_rec {
+class MetaAlignment {
+    uint16_t seq_ID : 16;
+    uint8_t as_depth : 8;
 
-            virtual void write(util::BitWriter *write) const;
+   public:
+    MetaAlignment(uint16_t _seq_ID, uint8_t _as_depth);
 
-            explicit MetaAlignment(util::BitReader *reader);
+    virtual void write(util::BitWriter *write) const;
 
-            uint16_t getSeqID() const;
+    explicit MetaAlignment(util::BitReader *reader);
 
-            uint8_t getAsDepth() const;
-        };
-    }
-}
+    uint16_t getSeqID() const;
 
+    uint8_t getAsDepth() const;
+};
+}  // namespace mpegg_rec
+}  // namespace format
 
-#endif //GENIE_META_ALIGNMENT_H
+#endif  // GENIE_META_ALIGNMENT_H

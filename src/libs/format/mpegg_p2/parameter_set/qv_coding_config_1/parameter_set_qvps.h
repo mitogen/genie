@@ -12,28 +12,28 @@
 // -----------------------------------------------------------------------------------------------------------------
 
 namespace format {
-    namespace mpegg_p2 {
+namespace mpegg_p2 {
 namespace qv_coding1 {
 
 /**
  * ISO 23092-2 Section 3.3.2.2 table 9
  */
-    class ParameterSetQvps {
-    private:
-        // uint8_t qv_num_codebooks_total : 4;    //!< Line 2
-        std::vector<QvCodebook> qv_codebooks;  //!< Lines 3 to 8
+class ParameterSetQvps {
+   private:
+    // uint8_t qv_num_codebooks_total : 4;    //!< Line 2
+    std::vector<QvCodebook> qv_codebooks;  //!< Lines 3 to 8
 
-    public:
-        ParameterSetQvps();
+   public:
+    ParameterSetQvps();
 
-        virtual ~ParameterSetQvps() = default;
+    virtual ~ParameterSetQvps() = default;
 
-        void addCodeBook(const QvCodebook &book);
+    void addCodeBook(const QvCodebook &book);
 
-        virtual void write(util::BitWriter *writer) const;
-    };
-}
+    virtual void write(util::BitWriter *writer) const;
+};
 }  // namespace qv_coding1
+}  // namespace mpegg_p2
 }  // namespace format
 
 // -----------------------------------------------------------------------------------------------------------------

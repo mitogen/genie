@@ -1,10 +1,6 @@
 #ifndef GENIE_FASTQ_IMPORTER_H
 #define GENIE_FASTQ_IMPORTER_H
 
+class FastqImporter {};
 
-class FastqImporter {
-
-};
-
-
-#endif //GENIE_FASTQ_IMPORTER_H
+#endif  // GENIE_FASTQ_IMPORTER_H

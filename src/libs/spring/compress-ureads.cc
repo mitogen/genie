@@ -150,7 +150,8 @@ void compress_ureads(format::fastq::FastqFileReader *fastqFileReader1, format::f
                     for (size_t descriptor = 0; descriptor < format::mpegg_p2::NUM_DESCRIPTORS; ++descriptor) {
                         if (descriptor != 11) {  // rname
                             for (size_t subdescriptor = 0;
-                                 subdescriptor < format::mpegg_p2::getDescriptorProperties()[descriptor].number_subsequences;
+                                 subdescriptor <
+                                 format::mpegg_p2::getDescriptorProperties()[descriptor].number_subsequences;
                                  ++subdescriptor) {
                                 gabac_compress(configs[descriptor][subdescriptor], &raw_data[descriptor][subdescriptor],
                                                &generated_streams[descriptor][subdescriptor]);
@@ -169,16 +170,17 @@ void compress_ureads(format::fastq::FastqFileReader *fastqFileReader1, format::f
 
                     uint32_t ACCESS_UNIT_ID = block_num_thr;
                     uint32_t num_reads_au = cp.paired_end ? num_reads_thr * 2 : num_reads_thr;
-                    AccessUnit au = createQuickAccessUnit(
-                        ACCESS_UNIT_ID, PARAMETER_SET_ID, num_reads_au, format::mpegg_rec::MpeggRecord::ClassType::CLASS_U,
-                        DataUnit::DatasetType::NON_ALIGNED, &generated_streams, num_reads_thr);
+                    AccessUnit au =
+                        createQuickAccessUnit(ACCESS_UNIT_ID, PARAMETER_SET_ID, num_reads_au,
+                                              format::mpegg_rec::MpeggRecord::ClassType::CLASS_U,
+                                              DataUnit::DatasetType::NON_ALIGNED, &generated_streams, num_reads_thr);
 
 #ifdef GENIE_USE_OPENMP
 #pragma omp ordered
 #endif
                     { au.write(&bw); }
                 }  // if (!done_loop)
-            }  // omp parallel for
+            }      // omp parallel for
 
             num_reads += num_reads_read[0] + num_reads_read[1];
         }  // if (num_reads_read[0] != 0)

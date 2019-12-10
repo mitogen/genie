@@ -324,8 +324,10 @@ bool decompress(const std::string &temp_dir, dsg::StreamSaver *ld, int num_thr, 
             fout_unmatched2.open(file_unmatched_fastq2);
         }
     }
-    std::vector<format::fastq::FastqRecord>(*matched_records)[2] = new std::vector<format::fastq::FastqRecord>[num_thr][2];
-    std::vector<format::fastq::FastqRecord>(*unmatched_records)[2] = new std::vector<format::fastq::FastqRecord>[num_thr][2];
+    std::vector<format::fastq::FastqRecord>(*matched_records)[2] =
+        new std::vector<format::fastq::FastqRecord>[num_thr][2];
+    std::vector<format::fastq::FastqRecord>(*unmatched_records)[2] =
+        new std::vector<format::fastq::FastqRecord>[num_thr][2];
     std::vector<uint32_t> *mate_au_id = new std::vector<uint32_t>[num_thr];
     std::vector<uint32_t> *mate_record_index = new std::vector<uint32_t>[num_thr];
 
@@ -514,7 +516,8 @@ void write_fastq_record_to_ostream(std::ostream &out, format::fastq::FastqRecord
     }
 }
 
-void read_fastq_record_from_ifstream(std::ifstream &in, format::fastq::FastqRecord &fastqRecord, bool preserve_quality) {
+void read_fastq_record_from_ifstream(std::ifstream &in, format::fastq::FastqRecord &fastqRecord,
+                                     bool preserve_quality) {
     std::getline(in, fastqRecord.title);
     std::getline(in, fastqRecord.sequence);
     if (preserve_quality) {

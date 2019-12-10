@@ -5,33 +5,29 @@
 #include <memory>
 
 namespace util {
-    class BitWriter;
+class BitWriter;
 
-    class BitReader;
-}
+class BitReader;
+}  // namespace util
 
 namespace format {
-    namespace mpegg_rec {
-        class ExternalAlignment {
-        public:
-            enum class MoreAlignmentInfoType : uint8_t {
-                NONE,
-                OTHER_REC
-            };
+namespace mpegg_rec {
+class ExternalAlignment {
+   public:
+    enum class MoreAlignmentInfoType : uint8_t { NONE, OTHER_REC };
 
-            explicit ExternalAlignment(MoreAlignmentInfoType _moreAlignmentInfoType);
+    explicit ExternalAlignment(MoreAlignmentInfoType _moreAlignmentInfoType);
 
-            virtual ~ExternalAlignment() = default;
+    virtual ~ExternalAlignment() = default;
 
-            virtual void write(util::BitWriter *writer) const;
+    virtual void write(util::BitWriter *writer) const;
 
-            static std::unique_ptr<ExternalAlignment> factory(util::BitReader *reader);
+    static std::unique_ptr<ExternalAlignment> factory(util::BitReader *reader);
 
-        protected:
-            MoreAlignmentInfoType moreAlignmentInfoType;
-        };
-    }
-}
+   protected:
+    MoreAlignmentInfoType moreAlignmentInfoType;
+};
+}  // namespace mpegg_rec
+}  // namespace format
 
-
-#endif //GENIE_EXTERNAL_ALIGNMENT_H
+#endif  // GENIE_EXTERNAL_ALIGNMENT_H

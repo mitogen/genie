@@ -4,24 +4,24 @@
 #include <string>
 
 namespace format {
-    namespace fastq {
+namespace fastq {
 
-        struct FastqRecord {
-        public:
-            FastqRecord();
+struct FastqRecord {
+   public:
+    FastqRecord();
 
-            FastqRecord(std::string title, std::string sequence, std::string optional, std::string qualityScores);
+    FastqRecord(std::string title, std::string sequence, std::string optional, std::string qualityScores);
 
-            ~FastqRecord();
+    ~FastqRecord();
 
-        public:
-            std::string title;
-            std::string sequence;
-            std::string optional;
-            std::string qualityScores;
-        };
+   public:
+    std::string title;
+    std::string sequence;
+    std::string optional;
+    std::string qualityScores;
+};
 
-    }
-}  // namespace util
+}  // namespace fastq
+}  // namespace format
 
 #endif  // UTIL_FASTQ_RECORD_H_

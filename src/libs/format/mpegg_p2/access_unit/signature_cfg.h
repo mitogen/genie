@@ -6,8 +6,8 @@
 #include <memory>
 #include <vector>
 
-#include "util/make_unique.h"
 #include "util/bitwriter.h"
+#include "util/make_unique.h"
 
 // -----------------------------------------------------------------------------------------------------------------
 

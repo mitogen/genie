@@ -76,8 +76,9 @@ namespace lae {
         // TODO: ref1 and ref2 need to be concatenated to form ref_sequence
         lrd.decodePair(ref1, mpegg_record_segment_1, ref2, mpegg_record_segment_2);
 
-        local_assembly_state_add_read(state, mpegg_record_segment_1->seq.c_str(), mpegg_record_segment_1->cigar.c_str(), mpegg_record_segment_1->pos);
-        local_assembly_state_add_read(state, mpegg_record_segment_2->seq.c_str(), mpegg_record_segment_2->cigar.c_str(), mpegg_record_segment_2->pos);
+        local_assembly_state_add_read(state, mpegg_record_segment_1->seq.c_str(), mpegg_record_segment_1->cigar.c_str(),
+mpegg_record_segment_1->pos); local_assembly_state_add_read(state, mpegg_record_segment_2->seq.c_str(),
+mpegg_record_segment_2->cigar.c_str(), mpegg_record_segment_2->pos);
 
         if (debug) {
             std::cout << "sequence[0]                  : " << mpegg_record_segment_1->seq << std::endl;

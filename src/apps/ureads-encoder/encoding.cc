@@ -155,15 +155,18 @@ void encode(const ProgramOptions& programOptions) {
     r.addSequence(util::make_unique<RawReferenceSequence>(0, 10, util::make_unique<std::string>("AAT")));
     r.write(&bw);
 
-    ParameterSet ps = createQuickParameterSet(PARAMETER_SET_ID, READ_LENGTH, PAIRED_END, QV_PRESENT, format::mpegg_rec::MpeggRecord::ClassType::CLASS_U, configs, false);
+    ParameterSet ps = createQuickParameterSet(PARAMETER_SET_ID, READ_LENGTH, PAIRED_END, QV_PRESENT,
+                                              format::mpegg_rec::MpeggRecord::ClassType::CLASS_U, configs, false);
     ps.write(&bw);
 
-    ParameterSet ps2 = createQuickParameterSet(1, READ_LENGTH, PAIRED_END, QV_PRESENT, format::mpegg_rec::MpeggRecord::ClassType::CLASS_U, configs, false);
+    ParameterSet ps2 = createQuickParameterSet(1, READ_LENGTH, PAIRED_END, QV_PRESENT,
+                                               format::mpegg_rec::MpeggRecord::ClassType::CLASS_U, configs, false);
     ps2.write(&bw);
 
     const uint32_t ACCESS_UNIT_ID = 0;
-  //  AccessUnit au = createQuickAccessUnit(ACCESS_UNIT_ID, PARAMETER_SET_ID, readNum, DataUnit::mpegg_rec::MpeggRecord::ClassType::CLASS_U, DataUnit::DatasetType::NON_ALIGNED, &generated_streams);
- //   au.write(&bw);
+    //  AccessUnit au = createQuickAccessUnit(ACCESS_UNIT_ID, PARAMETER_SET_ID, readNum,
+    //  DataUnit::mpegg_rec::MpeggRecord::ClassType::CLASS_U, DataUnit::DatasetType::NON_ALIGNED, &generated_streams);
+    //   au.write(&bw);
 
     GENIE_LOG_TRACE << "Number of bitstreams: " << generated_streams.size();
 }

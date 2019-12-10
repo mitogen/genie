@@ -15,14 +15,15 @@
 #include <string>
 #include <vector>
 
+#include <format/mpegg_p2/clutter.h>
 #include "generate-read-streams.h"
 #include "spring-gabac.h"
 #include "util.h"
-#include <format/mpegg_p2/clutter.h>
 
 namespace spring {
 
-void generate_read_streams(const std::string &temp_dir, const compression_params &cp, const std::vector<std::vector<gabac::EncodingConfiguration>>& configs) {
+void generate_read_streams(const std::string &temp_dir, const compression_params &cp,
+                           const std::vector<std::vector<gabac::EncodingConfiguration>> &configs) {
     if (!cp.paired_end)
         generate_read_streams_se(temp_dir, cp, configs);
     else
@@ -143,7 +144,8 @@ void generate_subseqs(const se_data &data, uint64_t block_num, std::vector<std::
     }
 }
 
-void generate_and_compress_se(const std::string &temp_dir, const se_data &data, const std::vector<std::vector<gabac::EncodingConfiguration>> &configs) {
+void generate_and_compress_se(const std::string &temp_dir, const se_data &data,
+                              const std::vector<std::vector<gabac::EncodingConfiguration>> &configs) {
     // Now generate new streams and compress blocks in parallel
     // this is actually number of read pairs per block for PE
     uint64_t blocks = uint64_t(std::ceil(float(data.cp.num_reads) / data.cp.num_reads_per_block));
@@ -155,7 +157,7 @@ void generate_and_compress_se(const std::string &temp_dir, const se_data &data, 
         auto raw_data = generate_empty_raw_data();
 
         generate_subseqs(data, block_num, raw_data);
-        num_reads_per_block[block_num] = raw_data[1][0].size(); // rcomp
+        num_reads_per_block[block_num] = raw_data[1][0].size();  // rcomp
 
         std::vector<std::vector<std::vector<gabac::DataBlock>>> generated_streams = create_default_streams();
         compress_read_subseqs(raw_data, generated_streams, configs);
@@ -169,8 +171,8 @@ void generate_and_compress_se(const std::string &temp_dir, const se_data &data, 
     const std::string block_info_file = temp_dir + "/block_info.bin";
     std::ofstream f_block_info(block_info_file, std::ios::binary);
     uint32_t num_blocks = (uint32_t)blocks;
-    f_block_info.write((char*)&num_blocks, sizeof(uint32_t));
-    f_block_info.write((char*)&num_reads_per_block[0],num_blocks*sizeof(uint32_t));
+    f_block_info.write((char *)&num_blocks, sizeof(uint32_t));
+    f_block_info.write((char *)&num_reads_per_block[0], num_blocks * sizeof(uint32_t));
 
     return;
 }
@@ -282,8 +284,7 @@ void loadSE_Data(const compression_params &cp, const std::string &temp_dir, se_d
     remove(file_seq.c_str());
 }
 
-void generate_read_streams_se(const std::string &temp_dir,
-                              const compression_params &cp,
+void generate_read_streams_se(const std::string &temp_dir, const compression_params &cp,
                               const std::vector<std::vector<gabac::EncodingConfiguration>> &configs) {
     se_data data;
     loadSE_Data(cp, temp_dir, &data);
@@ -751,7 +752,8 @@ void generate_streams_pe(const se_data &data, const pe_block_data &bdata, uint64
     }
 }
 
-void generate_read_streams_pe(const std::string &temp_dir, const compression_params &cp, const std::vector<std::vector<gabac::EncodingConfiguration>> &configs) {
+void generate_read_streams_pe(const std::string &temp_dir, const compression_params &cp,
+                              const std::vector<std::vector<gabac::EncodingConfiguration>> &configs) {
     // basic approach: start looking at reads from left to right. If current is
     // aligned but pair is unaligned, pair is kept at the end current AU and
     // stored in different record. We try to keep number of records in AU =
@@ -788,8 +790,9 @@ void generate_read_streams_pe(const std::string &temp_dir, const compression_par
         auto raw_data = generate_empty_raw_data();
 
         generate_streams_pe(data, bdata, cur_block_num, raw_data, &stats);
-        num_reads_per_block[cur_block_num] = raw_data[1][0].size(); // rcomp
-        num_records_per_block[cur_block_num] = bdata.block_end[cur_block_num] - bdata.block_start[cur_block_num]; // used later for ids
+        num_reads_per_block[cur_block_num] = raw_data[1][0].size();  // rcomp
+        num_records_per_block[cur_block_num] =
+            bdata.block_end[cur_block_num] - bdata.block_start[cur_block_num];  // used later for ids
         std::vector<std::vector<std::vector<gabac::DataBlock>>> generated_streams = create_default_streams();
         compress_read_subseqs(raw_data, generated_streams, configs);
 
@@ -808,9 +811,9 @@ void generate_read_streams_pe(const std::string &temp_dir, const compression_par
     const std::string block_info_file = temp_dir + "/block_info.bin";
     std::ofstream f_block_info(block_info_file, std::ios::binary);
     uint32_t num_blocks = bdata.block_start.size();
-    f_block_info.write((char*)&num_blocks, sizeof(uint32_t));
-    f_block_info.write((char*)&num_reads_per_block[0],num_blocks*sizeof(uint32_t));
-    f_block_info.write((char*)&num_records_per_block[0],num_blocks*sizeof(uint32_t));
+    f_block_info.write((char *)&num_blocks, sizeof(uint32_t));
+    f_block_info.write((char *)&num_reads_per_block[0], num_blocks * sizeof(uint32_t));
+    f_block_info.write((char *)&num_records_per_block[0], num_blocks * sizeof(uint32_t));
     return;
 }
 

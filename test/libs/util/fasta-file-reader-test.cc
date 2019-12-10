@@ -1,5 +1,5 @@
-#include <gtest/gtest.h>
 #include <format/fasta/fasta-file-reader.h>
+#include <gtest/gtest.h>
 #include "helpers.h"
 
 // May need to add some requirements on what counts as a valid FASTA in the documentation

@@ -5,10 +5,6 @@
 #ifndef GENIE_MGRECS_IMPORTER_H
 #define GENIE_MGRECS_IMPORTER_H
 
+class MgrecsImporter {};
 
-class MgrecsImporter {
-
-};
-
-
-#endif //GENIE_MGRECS_IMPORTER_H
+#endif  // GENIE_MGRECS_IMPORTER_H

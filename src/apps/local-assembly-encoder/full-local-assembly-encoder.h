@@ -1,24 +1,24 @@
 #ifndef GENIE_FULL_LOCAL_ASSEMBLY_ENCODER_H
 #define GENIE_FULL_LOCAL_ASSEMBLY_ENCODER_H
 
-#include "reference-encoder.h"
 #include "read-encoder.h"
+#include "reference-encoder.h"
 
 namespace lae {
-    class FullLocalAssemblyEncoder {
-    private:
-        LocalAssemblyReferenceEncoder refCoder;
-        LocalAssemblyReadEncoder readCoder;
-        bool debug;
-    public:
-        explicit FullLocalAssemblyEncoder(uint32_t cr_buf_max_size, bool _debug);
+class FullLocalAssemblyEncoder {
+   private:
+    LocalAssemblyReferenceEncoder refCoder;
+    LocalAssemblyReadEncoder readCoder;
+    bool debug;
 
-        void add(const format::sam::SamRecord &rec);
-        void addPair(const format::sam::SamRecord &rec1, const format::sam::SamRecord &rec2);
+   public:
+    explicit FullLocalAssemblyEncoder(uint32_t cr_buf_max_size, bool _debug);
 
-        std::unique_ptr<StreamContainer> pollStreams();
-    };
-}
+    void add(const format::sam::SamRecord &rec);
+    void addPair(const format::sam::SamRecord &rec1, const format::sam::SamRecord &rec2);
 
-#endif //GENIE_FULL_LOCAL_ASSEMBLY_ENCODER_H
+    std::unique_ptr<StreamContainer> pollStreams();
+};
+}  // namespace lae
 
+#endif  // GENIE_FULL_LOCAL_ASSEMBLY_ENCODER_H

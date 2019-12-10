@@ -1,5 +1,5 @@
-#include <gtest/gtest.h>
 #include <format/sam/sam-file-reader.h>
+#include <gtest/gtest.h>
 #include <iostream>
 #include "helpers.h"
 
