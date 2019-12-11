@@ -13,7 +13,7 @@ namespace mpegg_p1 {
 class Dataset {
    public:
     static std::unique_ptr<format::mpegg_p1::Dataset> createFromDataUnits(
-        std::vector<std::unique_ptr<format::mpegg_p2::DataUnit>>* dataUnits);
+        const std::vector<std::unique_ptr<format::mpegg_p2::DataUnit>>& dataUnits);
 
    private:
     /**

@@ -96,7 +96,7 @@ void ParameterSet::preWrite(util::BitWriter *writer) const {
     writer->write(qv_depth, 3);
     writer->write(as_depth, 3);
     writer->write(class_IDs.size(), 4);  // num_classes
-    for (auto &i : class_IDs) {
+    for (const auto &i : class_IDs) {
         writer->write(uint8_t(i), 4);
     }
     for (auto &i : descriptors) {
@@ -134,12 +134,12 @@ void ParameterSet::setCrps(std::unique_ptr<ParameterSetCrps> _parameter_set_crps
 // -----------------------------------------------------------------------------------------------------------------
 
 void ParameterSet::addClass(mpegg_rec::MpeggRecord::ClassType class_id, std::unique_ptr<QvCodingConfig> conf) {
-    for (auto &a : descriptors) {
+    for (const auto &a : descriptors) {
         if (a->isClassSpecific()) {
             UTILS_THROW_RUNTIME_EXCEPTION("Adding classes not allowed once class specific descriptor configs enabled");
         }
     }
-    for (auto &a : class_IDs) {
+    for (const auto &a : class_IDs) {
         if (class_id == a) {
             UTILS_THROW_RUNTIME_EXCEPTION("Class already added");
         }

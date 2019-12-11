@@ -26,7 +26,7 @@ class DatasetHeader {
     uint8_t num_classes : 4;
     uint8_t* clid;
     uint8_t* num_descriptors;
-    uint8_t* descriptor_ID;  // TODO: 2 dim array
+    uint8_t* descriptor_ID;  // TODO: 2 dim array as std::vector<std::vector<>>
     uint8_t alphabet_ID : 8;
     uint32_t num_U_access_units : 32;
     uint32_t num_U_clusters : 32;
@@ -36,7 +36,10 @@ class DatasetHeader {
     uint8_t U_signature_length : 8;
     uint8_t* tflag;
     uint32_t* thres;
-    // TODO: nesting_zero_bit
+    // TODO: nesting_zero_bit:
+    // while(!writer.byte_aligned()) {
+    //     writer->write(0);
+    // }
 };
 }  // namespace mpegg_p1
 }  // namespace format
