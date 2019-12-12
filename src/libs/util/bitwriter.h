@@ -30,6 +30,7 @@ class BitWriter {
     void write(uint64_t value, uint8_t bits);
     void write(std::istream *in);
     void writeBypassAlignedBuffer(void* ptr, size_t length);
+    void writeBypassAlignedByte(uint8_t byte);
 
     void flush();
 

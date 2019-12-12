@@ -106,6 +106,12 @@ void BitWriter::writeBypassAlignedBuffer(void* ptr, size_t length) {
 
 // -----------------------------------------------------------------------------------------------------------------
 
+void BitWriter::writeBypassAlignedByte(uint8_t byte) {
+    stream->write(reinterpret_cast<char*>(&byte), sizeof(uint8_t));
+}
+
+// -----------------------------------------------------------------------------------------------------------------
+
 void BitWriter::flush() {
     if (m_numHeldBits == 0) {
         return;

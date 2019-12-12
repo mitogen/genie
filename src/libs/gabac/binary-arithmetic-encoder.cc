@@ -16,7 +16,11 @@ BinaryArithmeticEncoder::BinaryArithmeticEncoder(const util::BitWriter& bitOutpu
       m_low(0),
       m_numBitsLeft(0),
       m_numBufferedBytes(0),
-      m_range(0) {}
+      m_range(0) {
+    if(!m_bitOutputStream.isAligned()) {
+        UTILS_DIE("Bitwriter not aligned before BinaryArithmeticEncoder starts");
+    }
+}
 
 BinaryArithmeticEncoder::~BinaryArithmeticEncoder() = default;
 
@@ -102,8 +106,6 @@ void BinaryArithmeticEncoder::encodeBinTrm(unsigned int bin) {
 void BinaryArithmeticEncoder::flush() {
     encodeBinTrm(1);
     finish();
-    m_bitOutputStream.write(1, 1);
-    m_bitOutputStream.flush();
     start();
 }
 
@@ -117,22 +119,24 @@ void BinaryArithmeticEncoder::start() {
 
 void BinaryArithmeticEncoder::finish() {
     if ((m_low >> (32u - m_numBitsLeft)) > 0) {
-        m_bitOutputStream.write((m_bufferedByte + 1), 8);
+        m_bitOutputStream.writeBypassAlignedByte(m_bufferedByte + 1);
         while (m_numBufferedBytes > 1) {
-            m_bitOutputStream.write(0x00, 8);
+            m_bitOutputStream.writeBypassAlignedByte(0x00);
             m_numBufferedBytes -= 1;
         }
         m_low -= (1u << (32u - m_numBitsLeft));
     } else {
         if (m_numBufferedBytes > 0) {
-            m_bitOutputStream.write(m_bufferedByte, 8);
+            m_bitOutputStream.writeBypassAlignedByte(m_bufferedByte);
         }
         while (m_numBufferedBytes > 1) {
-            m_bitOutputStream.write(0xff, 8);
+            m_bitOutputStream.writeBypassAlignedByte(0xff);
             m_numBufferedBytes -= 1;
         }
     }
     m_bitOutputStream.write(m_low >> 8u, (24u - m_numBitsLeft));
+    m_bitOutputStream.write(1, 1);
+    m_bitOutputStream.flush();
 }
 
 void BinaryArithmeticEncoder::writeOut() {
@@ -147,11 +151,11 @@ void BinaryArithmeticEncoder::writeOut() {
             unsigned char byte = m_bufferedByte + carry;
 
             m_bufferedByte = static_cast<unsigned char>(leadByte & 0xffu);
-            m_bitOutputStream.write(byte, 8);
+            m_bitOutputStream.writeBypassAlignedByte(byte);
 
             byte = static_cast<unsigned char>(0xff) + carry;
             while (m_numBufferedBytes > 1) {
-                m_bitOutputStream.write(byte, 8);
+                m_bitOutputStream.writeBypassAlignedByte(byte);
                 m_numBufferedBytes -= 1;
             }
         } else {
