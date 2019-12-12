@@ -29,8 +29,11 @@ class BitWriter {
 
     void write(uint64_t value, uint8_t bits);
     void write(std::istream *in);
+    void writeBypassAlignedBuffer(void* ptr, size_t length);
 
     void flush();
+
+    bool isAligned() const;
 
     uint64_t getBitsWritten();
 };

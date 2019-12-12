@@ -100,6 +100,12 @@ void BitWriter::write(std::istream *in) {
 
 // -----------------------------------------------------------------------------------------------------------------
 
+void BitWriter::writeBypassAlignedBuffer(void* ptr, size_t length) {
+    stream->write(reinterpret_cast<char*>(ptr), length);
+}
+
+// -----------------------------------------------------------------------------------------------------------------
+
 void BitWriter::flush() {
     if (m_numHeldBits == 0) {
         return;
@@ -113,4 +119,10 @@ void BitWriter::flush() {
 // -----------------------------------------------------------------------------------------------------------------
 
 uint64_t BitWriter::getBitsWritten() { return m_bitsWritten + m_numHeldBits; }
+
+bool BitWriter::isAligned() const{
+    return !m_numHeldBits;
+}
+
+
 }  // namespace util

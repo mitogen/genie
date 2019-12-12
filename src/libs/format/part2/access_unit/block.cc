@@ -23,10 +23,10 @@ void Block::write(util::BitWriter *writer) {
     writer->write(descriptor_ID, 7);
     writer->write(reserved_2, 3);
     writer->write(block_payload_size, 29);
-    for (auto &i : payload) {
-        writer->write(i, 8);
+    if(!writer->isAligned()) {
+        UTILS_DIE("Bitwriter not aligned before block payload");
     }
-    writer->flush();
+    writer->writeBypassAlignedBuffer(payload.data(), payload.size());
 }
 
 uint32_t Block::getTotalSize() { return block_payload_size + 5; }
