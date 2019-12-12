@@ -40,7 +40,7 @@ std::streamsize DataBlockBuffer::xsputn(const char *s, std::streamsize n) {
         GABAC_DIE("Invalid Data length");
     }
     size_t oldSize = block.size();
-    block.resize(block.size() + n / block.getWordSize());
+    block.resize(oldSize + n / block.getWordSize());
     memcpy(static_cast<uint8_t *>(block.getData()) + oldSize * block.getWordSize(), s, static_cast<size_t>(n));
     return n;
 }
