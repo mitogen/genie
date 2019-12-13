@@ -23,6 +23,14 @@ AccessUnit::AccessUnit(util::BitReader *bitReader)  // needs to be called by for
     }
 }
 
+// -----------------------------------------------------------------------------------------------------------------
+
+// TODO: create copy constructor to call from P1 AccessUnit (same for P2 ParameterSet)
+AccessUnit::AccessUnit(const AccessUnit &accessUnit)
+    : DataUnit(DataUnitType::ACCESS_UNIT, accessUnit.getDataUnitSize()) {}
+
+// -----------------------------------------------------------------------------------------------------------------
+
 AccessUnit::AccessUnit(uint32_t _access_unit_ID, uint8_t _parameter_set_ID, mpegg_rec::MpeggRecord::ClassType _au_type,
                        uint32_t _reads_count, DatasetType dataset_type, uint8_t posSize, uint8_t signatureSize,
                        uint32_t multiple_signature_base)
@@ -54,6 +62,8 @@ AccessUnit::AccessUnit(uint32_t _access_unit_ID, uint8_t _parameter_set_ID, mpeg
         }
     }
 }
+
+// -----------------------------------------------------------------------------------------------------------------
 
 void AccessUnit::setMmCfg(std::unique_ptr<MmCfg> cfg) {
     if (!mm_cfg) {

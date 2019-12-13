@@ -30,6 +30,8 @@ class AccessUnit : public DataUnit {
    public:
     explicit AccessUnit(util::BitReader *bitReader);
 
+    AccessUnit(const AccessUnit &);
+
     void write(util::BitWriter *writer) const override;
 
     AccessUnit(uint32_t _access_unit_ID, uint8_t _parameter_set_ID, mpegg_rec::MpeggRecord::ClassType _au_type,

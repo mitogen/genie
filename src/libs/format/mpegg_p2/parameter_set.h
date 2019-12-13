@@ -35,6 +35,8 @@ class ParameterSet : public DataUnit {
         ACGTRYSWKMBDHVN_ = 1  //!< Line 2
     };
 
+    ParameterSet(const ParameterSet &parameterSet);
+
     explicit ParameterSet(util::BitReader *bitReader);
 
     ParameterSet(uint8_t _parameter_set_ID, uint8_t _parent_parameter_set_ID, DatasetType _dataset_type,

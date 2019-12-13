@@ -6,6 +6,9 @@
 namespace format {
 namespace mpegg_p1 {
 class DatasetParameterSet : public format::mpegg_p2::ParameterSet {
+   public:
+    DatasetParameterSet(format::mpegg_p2::ParameterSet&);
+
    private:
     /**
      * ISO 23092-1 Section 6.5.2 table 23
