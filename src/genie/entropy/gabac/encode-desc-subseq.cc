@@ -4,7 +4,7 @@
  * https://github.com/mitogen/genie for more details.
  */
 
-#include "encoding.h"
+#include "encode-desc-subseq.h"
 
 #include <algorithm>
 #include <cmath>
@@ -14,7 +14,7 @@
 #include <genie/util/block-stepper.h>
 #include <genie/util/data-block.h>
 #include "configuration.h"
-#include "encode-cabac.h"
+#include "encode-transformed-subseq.h"
 #include "stream-handler.h"
 #include "writer.h"
 
@@ -23,13 +23,9 @@
 #include "merge-subseq-transform.h"
 #include "rle-subseq-transform.h"
 
-// ---------------------------------------------------------------------------------------------------------------------
-
 namespace genie {
 namespace entropy {
 namespace gabac {
-
-// ---------------------------------------------------------------------------------------------------------------------
 
 static inline void doSubsequenceTransform(const paramcabac::Subsequence &subseqCfg,
                                           std::vector<util::DataBlock> *const transformedSubseqs) {
@@ -67,8 +63,6 @@ static inline void doSubsequenceTransform(const paramcabac::Subsequence &subseqC
     // << " bytes";
     // }
 }
-
-// ---------------------------------------------------------------------------------------------------------------------
 
 unsigned long encodeDescSubsequence(const IOConfiguration &conf, const EncodingConfiguration &enConf) {
     conf.validate();
@@ -130,12 +124,6 @@ unsigned long encodeDescSubsequence(const IOConfiguration &conf, const EncodingC
 
     return subseqPayloadSize;
 }
-
-// ---------------------------------------------------------------------------------------------------------------------
-
 }  // namespace gabac
 }  // namespace entropy
 }  // namespace genie
-
-// ---------------------------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------

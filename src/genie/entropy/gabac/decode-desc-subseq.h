@@ -4,8 +4,8 @@
  * https://github.com/mitogen/genie for more details.
  */
 
-#ifndef GABAC_ENCODING_H_
-#define GABAC_ENCODING_H_
+#ifndef GABAC_DECODE_DESC_SUBSEQ_H_
+#define GABAC_DECODE_DESC_SUBSEQ_H_
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -15,16 +15,16 @@ namespace gabac {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-struct IOConfiguration;
 struct EncodingConfiguration;
+struct IOConfiguration;
 
 /**
  *
- * @param conf
+ * @param ioConf
  * @param enConf
  * @return
  */
-unsigned long encodeDescSubsequence(const IOConfiguration& conf, const EncodingConfiguration& enConf);
+unsigned long decodeDescSubsequence(const IOConfiguration& ioConf, const EncodingConfiguration& enConf);
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -34,7 +34,7 @@ unsigned long encodeDescSubsequence(const IOConfiguration& conf, const EncodingC
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-#endif  // GABAC_ENCODING_H_
+#endif  // GABAC_DECODE_DESC_SUBSEQ_H_
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------

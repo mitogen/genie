@@ -4,7 +4,7 @@
  * https://github.com/mitogen/genie for more details.
  */
 
-#include "encode-cabac.h"
+#include "encode-transformed-subseq.h"
 
 #include <cassert>
 
@@ -15,26 +15,20 @@
 #include "context-selector.h"
 #include "luts-subsymbol-transform.h"
 
-// ---------------------------------------------------------------------------------------------------------------------
-
 namespace genie {
 namespace entropy {
 namespace gabac {
 
-// ---------------------------------------------------------------------------------------------------------------------
-
 typedef void (Writer::*binFunc)(uint64_t, const std::vector<unsigned int>);
-
-// ---------------------------------------------------------------------------------------------------------------------
 
 static inline void encodeSignflag(Writer &writer, const paramcabac::BinarizationParameters::BinarizationId binID,
                                   const int64_t signedSymbolValue) {
     if (signedSymbolValue != 0) {
         switch (binID) {
-            case paramcabac::BinarizationParameters::BinarizationId::SIGNED_EXPONENTIAL_GOMB:
-            case paramcabac::BinarizationParameters::BinarizationId::SIGNED_TRUNCATED_EXPONENTIAL_GOLOMB:
-            case paramcabac::BinarizationParameters::BinarizationId::SIGNED_SPLIT_UNITWISE_TRUNCATED_UNARY:
-            case paramcabac::BinarizationParameters::BinarizationId::SIGNED_DOUBLE_TRUNCATED_UNARY:
+            case paramcabac::BinarizationParameters::BinarizationId::SEG:
+            case paramcabac::BinarizationParameters::BinarizationId::STEG:
+            case paramcabac::BinarizationParameters::BinarizationId::SSUTU:
+            case paramcabac::BinarizationParameters::BinarizationId::SDTU:
                 writer.writeSignFlag(signedSymbolValue);
                 break;
             default:
@@ -43,8 +37,6 @@ static inline void encodeSignflag(Writer &writer, const paramcabac::Binarization
     }
 }
 
-// ---------------------------------------------------------------------------------------------------------------------
-
 static inline binFunc getBinarizor(const uint8_t outputSymbolSize, const bool bypassFlag,
                                    const paramcabac::BinarizationParameters::BinarizationId binID,
                                    const paramcabac::BinarizationParameters &binarzationParams,
@@ -52,31 +44,31 @@ static inline binFunc getBinarizor(const uint8_t outputSymbolSize, const bool by
     binFunc func = nullptr;
     if (bypassFlag) {
         switch (binID) {
-            case paramcabac::BinarizationParameters::BinarizationId::BINARY_CODING:
+            case paramcabac::BinarizationParameters::BinarizationId::BI:
                 func = &Writer::writeAsBIbypass;
                 binParams[0] = stateVars.getCLengthBI();
                 break;
-            case paramcabac::BinarizationParameters::BinarizationId::TRUNCATED_UNARY:
+            case paramcabac::BinarizationParameters::BinarizationId::TU:
                 func = &Writer::writeAsTUbypass;
                 binParams[0] = binarzationParams.getCMax();
                 break;
-            case paramcabac::BinarizationParameters::BinarizationId::EXPONENTIAL_GOLOMB:
-            case paramcabac::BinarizationParameters::BinarizationId::SIGNED_EXPONENTIAL_GOMB:
+            case paramcabac::BinarizationParameters::BinarizationId::EG:
+            case paramcabac::BinarizationParameters::BinarizationId::SEG:
                 func = &Writer::writeAsEGbypass;
                 break;
-            case paramcabac::BinarizationParameters::BinarizationId::TRUNCATED_EXPONENTIAL_GOLOMB:
-            case paramcabac::BinarizationParameters::BinarizationId::SIGNED_TRUNCATED_EXPONENTIAL_GOLOMB:
+            case paramcabac::BinarizationParameters::BinarizationId::TEG:
+            case paramcabac::BinarizationParameters::BinarizationId::STEG:
                 func = &Writer::writeAsTEGbypass;
                 binParams[0] = binarzationParams.getCMaxTeg();
                 break;
-            case paramcabac::BinarizationParameters::BinarizationId::SPLIT_UNITWISE_TRUNCATED_UNARY:
-            case paramcabac::BinarizationParameters::BinarizationId::SIGNED_SPLIT_UNITWISE_TRUNCATED_UNARY:
+            case paramcabac::BinarizationParameters::BinarizationId::SUTU:
+            case paramcabac::BinarizationParameters::BinarizationId::SSUTU:
                 func = &Writer::writeAsSUTUbypass;
                 binParams[0] = outputSymbolSize;
                 binParams[1] = binarzationParams.getSplitUnitSize();
                 break;
-            case paramcabac::BinarizationParameters::BinarizationId::DOUBLE_TRUNCATED_UNARY:
-            case paramcabac::BinarizationParameters::BinarizationId::SIGNED_DOUBLE_TRUNCATED_UNARY:
+            case paramcabac::BinarizationParameters::BinarizationId::DTU:
+            case paramcabac::BinarizationParameters::BinarizationId::SDTU:
                 func = &Writer::writeAsDTUbypass;
                 binParams[0] = outputSymbolSize;
                 binParams[1] = binarzationParams.getSplitUnitSize();
@@ -87,31 +79,31 @@ static inline binFunc getBinarizor(const uint8_t outputSymbolSize, const bool by
         }
     } else {
         switch (binID) {
-            case paramcabac::BinarizationParameters::BinarizationId::BINARY_CODING:
+            case paramcabac::BinarizationParameters::BinarizationId::BI:
                 func = &Writer::writeAsBIcabac;
                 binParams[0] = stateVars.getCLengthBI();
                 break;
-            case paramcabac::BinarizationParameters::BinarizationId::TRUNCATED_UNARY:
+            case paramcabac::BinarizationParameters::BinarizationId::TU:
                 func = &Writer::writeAsTUcabac;
                 binParams[0] = binarzationParams.getCMax();
                 break;
-            case paramcabac::BinarizationParameters::BinarizationId::EXPONENTIAL_GOLOMB:
-            case paramcabac::BinarizationParameters::BinarizationId::SIGNED_EXPONENTIAL_GOMB:
+            case paramcabac::BinarizationParameters::BinarizationId::EG:
+            case paramcabac::BinarizationParameters::BinarizationId::SEG:
                 func = &Writer::writeAsEGcabac;
                 break;
-            case paramcabac::BinarizationParameters::BinarizationId::TRUNCATED_EXPONENTIAL_GOLOMB:
-            case paramcabac::BinarizationParameters::BinarizationId::SIGNED_TRUNCATED_EXPONENTIAL_GOLOMB:
+            case paramcabac::BinarizationParameters::BinarizationId::TEG:
+            case paramcabac::BinarizationParameters::BinarizationId::STEG:
                 func = &Writer::writeAsTEGcabac;
                 binParams[0] = binarzationParams.getCMaxTeg();
                 break;
-            case paramcabac::BinarizationParameters::BinarizationId::SPLIT_UNITWISE_TRUNCATED_UNARY:
-            case paramcabac::BinarizationParameters::BinarizationId::SIGNED_SPLIT_UNITWISE_TRUNCATED_UNARY:
+            case paramcabac::BinarizationParameters::BinarizationId::SUTU:
+            case paramcabac::BinarizationParameters::BinarizationId::SSUTU:
                 func = &Writer::writeAsSUTUcabac;
                 binParams[0] = outputSymbolSize;
                 binParams[1] = binarzationParams.getSplitUnitSize();
                 break;
-            case paramcabac::BinarizationParameters::BinarizationId::DOUBLE_TRUNCATED_UNARY:
-            case paramcabac::BinarizationParameters::BinarizationId::SIGNED_DOUBLE_TRUNCATED_UNARY:
+            case paramcabac::BinarizationParameters::BinarizationId::DTU:
+            case paramcabac::BinarizationParameters::BinarizationId::SDTU:
                 func = &Writer::writeAsDTUcabac;
                 binParams[0] = outputSymbolSize;
                 binParams[1] = binarzationParams.getSplitUnitSize();
@@ -124,8 +116,6 @@ static inline binFunc getBinarizor(const uint8_t outputSymbolSize, const bool by
 
     return func;
 }
-
-// ---------------------------------------------------------------------------------------------------------------------
 
 size_t encodeTransformSubseqOrder0(const paramcabac::TransformedSubSeq &trnsfSubseqConf, util::DataBlock *symbols,
                                    size_t maxSize) {
@@ -201,8 +191,6 @@ size_t encodeTransformSubseqOrder0(const paramcabac::TransformedSubSeq &trnsfSub
     return symbols->size();  // size of bitstream
 }
 
-// ---------------------------------------------------------------------------------------------------------------------
-
 size_t encodeTransformSubseqOrder1(const paramcabac::TransformedSubSeq &trnsfSubseqConf, util::DataBlock *symbols,
                                    util::DataBlock *const depSymbols, size_t maxSize) {
     assert(symbols != nullptr);
@@ -222,6 +210,7 @@ size_t encodeTransformSubseqOrder1(const paramcabac::TransformedSubSeq &trnsfSub
     const uint8_t codingOrder = supportVals.getCodingOrder();
     const uint64_t subsymMask = paramcabac::StateVars::get2PowN(codingSubsymSize) - 1;
     const bool bypassFlag = binarzation.getBypassFlag();
+    assert(bypassFlag == false);
 
     uint8_t const numLuts =
         stateVars.getNumLuts(codingOrder, supportVals.getShareSubsymLutFlag(), trnsfSubseqConf.getTransformIDSubsym());
@@ -288,7 +277,7 @@ size_t encodeTransformSubseqOrder1(const paramcabac::TransformedSubSeq &trnsfSub
                 subsymbols[s].lutEntryIdx = 0;
                 lutsSubsymTrnsfm.transformOrder1(subsymbols, s, lutIdx, prvIdx);
                 subsymValToCode = subsymbols[s].lutEntryIdx;
-                if (binID == paramcabac::BinarizationParameters::BinarizationId::TRUNCATED_UNARY) {
+                if (binID == paramcabac::BinarizationParameters::BinarizationId::TU) {
                     binParams[0] =
                         std::min((uint64_t)binarzationParams.getCMax(), subsymbols[s].lutNumMaxElems);  // update cMax
                 }
@@ -311,8 +300,6 @@ size_t encodeTransformSubseqOrder1(const paramcabac::TransformedSubSeq &trnsfSub
     return symbols->size();  // size of bitstream
 }
 
-// ---------------------------------------------------------------------------------------------------------------------
-
 size_t encodeTransformSubseqOrder2(const paramcabac::TransformedSubSeq &trnsfSubseqConf, util::DataBlock *symbols,
                                    size_t maxSize) {
     assert(symbols != nullptr);
@@ -332,6 +319,7 @@ size_t encodeTransformSubseqOrder2(const paramcabac::TransformedSubSeq &trnsfSub
     const uint8_t codingOrder = supportVals.getCodingOrder();
     const uint64_t subsymMask = paramcabac::StateVars::get2PowN(codingSubsymSize) - 1;
     const bool bypassFlag = binarzation.getBypassFlag();
+    assert(bypassFlag == false);
 
     uint8_t const numLuts =
         stateVars.getNumLuts(codingOrder, supportVals.getShareSubsymLutFlag(), trnsfSubseqConf.getTransformIDSubsym());
@@ -382,7 +370,7 @@ size_t encodeTransformSubseqOrder2(const paramcabac::TransformedSubSeq &trnsfSub
                 subsymbols[s].lutEntryIdx = 0;
                 lutsSubsymTrnsfm.transformOrder2(subsymbols, s, lutIdx, prvIdx);
                 subsymValToCode = subsymbols[s].lutEntryIdx;
-                if (binID == paramcabac::BinarizationParameters::BinarizationId::TRUNCATED_UNARY) {
+                if (binID == paramcabac::BinarizationParameters::BinarizationId::TU) {
                     binParams[0] =
                         std::min((uint64_t)binarzationParams.getCMax(), subsymbols[s].lutNumMaxElems);  // update cMax
                 }
@@ -406,8 +394,6 @@ size_t encodeTransformSubseqOrder2(const paramcabac::TransformedSubSeq &trnsfSub
     return symbols->size();  // size of bitstream
 }
 
-// ---------------------------------------------------------------------------------------------------------------------
-
 size_t encodeTransformSubseq(const paramcabac::TransformedSubSeq &trnsfSubseqConf, util::DataBlock *symbols,
                              util::DataBlock *const depSymbols, size_t maxSize) {
     switch (trnsfSubseqConf.getSupportValues().getCodingOrder()) {
@@ -426,12 +412,6 @@ size_t encodeTransformSubseq(const paramcabac::TransformedSubSeq &trnsfSubseqCon
 
     return 0;
 }
-
-// ---------------------------------------------------------------------------------------------------------------------
-
 }  // namespace gabac
 }  // namespace entropy
 }  // namespace genie
-
-// ---------------------------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------

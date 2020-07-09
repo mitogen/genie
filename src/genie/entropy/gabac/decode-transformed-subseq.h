@@ -4,14 +4,12 @@
  * https://github.com/mitogen/genie for more details.
  */
 
-#ifndef GABAC_ENCODE_CABAC_H_
-#define GABAC_ENCODE_CABAC_H_
+#ifndef GABAC_DECODE_TRANSFORMED_SUBSEQ_H_
+#define GABAC_DECODE_TRANSFORMED_SUBSEQ_H_
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-#include <cstddef>
 #include <cstdint>
-#include <limits>
 #include <vector>
 
 #include <genie/entropy/paramcabac/transformed-subseq.h>
@@ -33,14 +31,13 @@ namespace gabac {
 /**
  *
  * @param trnsfSubseqConf
- * @param symbols
+ * @param numEncodedSymbols
+ * @param bitstream
  * @param depSymbols
- * @param maxsize
  * @return
  */
-size_t encodeTransformSubseq(const paramcabac::TransformedSubSeq& trnsfSubseqConf, util::DataBlock* symbols,
-                             util::DataBlock* const depSymbols = nullptr,
-                             size_t maxsize = std::numeric_limits<size_t>::max());
+size_t decodeTransformSubseq(const paramcabac::TransformedSubSeq& trnsfSubseqConf, const unsigned int numEncodedSymbols,
+                             util::DataBlock* bitstream, util::DataBlock* const depSymbols = nullptr);
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -50,7 +47,7 @@ size_t encodeTransformSubseq(const paramcabac::TransformedSubSeq& trnsfSubseqCon
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-#endif  // GABAC_ENCODE_CABAC_H_
+#endif  // GABAC_DECODE_TRANSFORMED_SUBSEQ_H_
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------

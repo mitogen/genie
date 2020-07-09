@@ -8,7 +8,7 @@
 #include <genie/util/exceptions.h>
 #include <genie/util/watch.h>
 #include <sstream>
-#include "decode-cabac.h"
+#include "decode-transformed-subseq.h"
 #include "stream-handler.h"
 
 // ---------------------------------------------------------------------------------------------------------------------

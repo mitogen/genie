@@ -95,20 +95,6 @@ class Reader {
      * @param binParams
      * @return
      */
-    uint64_t readAsSEGbypass(const std::vector<unsigned int> binParams);
-
-    /**
-     *
-     * @param binParams
-     * @return
-     */
-    uint64_t readAsSEGcabac(const std::vector<unsigned int> binParams);
-
-    /**
-     *
-     * @param binParams
-     * @return
-     */
     uint64_t readAsTEGbypass(const std::vector<unsigned int> binParams);
 
     /**
@@ -145,48 +131,6 @@ class Reader {
      * @return
      */
     uint64_t readAsDTUcabac(const std::vector<unsigned int> binParams);
-
-    /**
-     *
-     * @param binParams
-     * @return
-     */
-    uint64_t readBI(const std::vector<unsigned int> binParams);
-
-    /**
-     *
-     * @param binParams
-     * @return
-     */
-    uint64_t readTU(const std::vector<unsigned int> binParams);
-
-    /**
-     *
-     * @param binParams
-     * @return
-     */
-    uint64_t readEG(const std::vector<unsigned int> binParams);
-
-    /**
-     *
-     * @param binParams
-     * @return
-     */
-    uint64_t readTEG(const std::vector<unsigned int> binParams);
-
-    /**
-     *
-     * @param binParams
-     * @return
-     */
-    uint64_t readSUTU(const std::vector<unsigned int> binParams);
-
-    /**
-     *
-     * @param binParams
-     * @return
-     */
-    uint64_t readDTU(const std::vector<unsigned int> binParams);
 
     /**
      *

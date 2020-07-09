@@ -278,8 +278,8 @@ uint64_t LUTsSubSymbolTransform::getNumMaxElemsOrder1(std::vector<Subsymbol>& su
 void LUTsSubSymbolTransform::invTransformOrder2(std::vector<Subsymbol>& subsymbols, const uint8_t subsymIdx,
                                                 const uint8_t lutIdx, const uint8_t prvIdx) {
     subsymbols[subsymIdx].subsymValue = lutsO2[lutIdx][subsymbols[prvIdx].prvValues[1]][subsymbols[prvIdx].prvValues[0]]
-                                            .entries[subsymbols[subsymIdx].lutEntryIdx]
-                                            .value;
+        .entries[subsymbols[subsymIdx].lutEntryIdx]
+        .value;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
