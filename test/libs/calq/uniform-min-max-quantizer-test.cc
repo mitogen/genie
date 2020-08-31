@@ -1,12 +1,12 @@
-#include "uniform_min_max_quantizer.h"
+#include "../../../src/genie/quality/calq/uniform_min_max_quantizer.h"
 #include <gtest/gtest.h>
 
 TEST(UniformMinMaxQuantizer, Initialization) {  // NOLINT(cert-err58-cpp)
-    calq::UniformMinMaxQuantizer q3(0, 1, 2);
+    genie::quality::calq::UniformMinMaxQuantizer q3(0, 1, 2);
 }
 
 TEST(UniformMinMaxQuantizer, PositiveRange) {  // NOLINT(cert-err58-cpp)
-    calq::UniformMinMaxQuantizer q(0, 4, 2);
+    genie::quality::calq::UniformMinMaxQuantizer q(0, 4, 2);
 
     EXPECT_EQ(q.valueToIndex(0), 0);
     EXPECT_EQ(q.valueToIndex(1), 0);
@@ -19,7 +19,7 @@ TEST(UniformMinMaxQuantizer, PositiveRange) {  // NOLINT(cert-err58-cpp)
 }
 
 TEST(UniformMinMaxQuantizer, NegativeRange) {  // NOLINT(cert-err58-cpp)
-    calq::UniformMinMaxQuantizer q(-5, -1, 2);
+    genie::quality::calq::UniformMinMaxQuantizer q(-5, -1, 2);
 
     EXPECT_EQ(q.valueToIndex(-5), 0);
     EXPECT_EQ(q.valueToIndex(-4), 0);
@@ -32,7 +32,7 @@ TEST(UniformMinMaxQuantizer, NegativeRange) {  // NOLINT(cert-err58-cpp)
 }
 
 TEST(UniformMinMaxQuantizer, EightBinning) {  // NOLINT(cert-err58-cpp)
-    calq::UniformMinMaxQuantizer q(0, 40, 8);
+    genie::quality::calq::UniformMinMaxQuantizer q(0, 40, 8);
 
     EXPECT_EQ(q.valueToIndex(0), 0);
     EXPECT_EQ(q.valueToIndex(1), 0);

@@ -1,11 +1,11 @@
-#include "probability_distribution.h"
+#include "../../../src/genie/quality/calq/probability_distribution.h"
 #include <gtest/gtest.h>
 
 TEST(ProbabilityDistribution, Generic) {  // NOLINT(cert-err58-cpp)
     size_t rangeMin = 0;
     size_t rangeMax = 1;
 
-    calq::ProbabilityDistribution dist(rangeMin, rangeMax);
+    genie::quality::calq::ProbabilityDistribution dist(rangeMin, rangeMax);
 
     // add()
     EXPECT_NO_THROW(dist.addToPdf(0, 1));

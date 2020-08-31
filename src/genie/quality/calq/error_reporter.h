@@ -15,13 +15,15 @@
 
 // -----------------------------------------------------------------------------
 
+namespace genie{
+namespace quality{
 namespace calq {
 
 // -----------------------------------------------------------------------------
 
 inline void throwErrorException(const std::string& msg){
     std::cout.flush();
-    throw calq::ErrorException(msg);
+    throw genie::quality::calq::ErrorException(msg);
 }
 
 // -----------------------------------------------------------------------------
@@ -66,6 +68,8 @@ class ErrorExceptionReporter
 // -----------------------------------------------------------------------------
 
 }  // namespace calq
+}  // namespace quality
+}  // namespace genie
 
 // -----------------------------------------------------------------------------
 
@@ -73,7 +77,7 @@ class ErrorExceptionReporter
 // creates a stack temporary instance of ErrorExceptionReporter initialized
 // with the caller.
 #undef throwErrorException
-#define throwErrorException calq::ErrorExceptionReporter(__FILE__, \
+#define throwErrorException genie::quality::calq::ErrorExceptionReporter(__FILE__, \
                                                             __FUNCTION__, \
                                                             __LINE__ \
 )

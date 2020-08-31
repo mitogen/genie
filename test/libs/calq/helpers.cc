@@ -1,5 +1,5 @@
 #include "helpers.h"
-#include "string-helpers.h"
+#include "../../../src/genie/quality/calq/string-helpers.h"
 
 namespace calq_tests {
 
@@ -21,7 +21,7 @@ std::string exec(const std::string &cmd) {
 
     pclose(pipe);
 
-    calq::rtrim(result);
+    genie::quality::calq::rtrim(result);
 
     return result;
 }

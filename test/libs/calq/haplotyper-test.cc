@@ -1,10 +1,10 @@
-#include "haplotyper.h"
+#include "../../../src/genie/quality/calq/haplotyper.h"
 #include <gtest/gtest.h>
-#include "data-structures.h"
+#include "../../../src/genie/quality/calq/data-structures.h"
 //#include "calq_coder.h"
 
 TEST(Haplotyper, Everything) {  // NOLINT(cert-err58-cpp)
-    calq::Haplotyper h(5, 2, 33, 8, 5, 3, 5, false, true, calq::FilterType::GAUSS);
+    genie::quality::calq::Haplotyper h(5, 2, 33, 8, 5, 3, 5, false, true, genie::quality::calq::FilterType::GAUSS);
 
     EXPECT_EQ(h.getOffset(), 10);
 
@@ -21,7 +21,7 @@ TEST(Haplotyper, Everything) {  // NOLINT(cert-err58-cpp)
     EXPECT_EQ(h.push("C", "}", 0, 'A'), 7);
 
     // Reset
-    calq::Haplotyper h2(5, 2, 33, 8, 5, 3, 5, false, true, calq::FilterType::GAUSS);
+    genie::quality::calq::Haplotyper h2(5, 2, 33, 8, 5, 3, 5, false, true, genie::quality::calq::FilterType::GAUSS);
 
     h2.push("CCC", "}}}", 15, 'A');
 

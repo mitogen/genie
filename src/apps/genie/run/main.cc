@@ -22,6 +22,7 @@
 #include "program-options.h"
 
 #include <genie/quality/qvwriteout/encoder-none.h>
+#include <genie/quality/calq/encoder.h>
 #include <iostream>
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -181,6 +182,10 @@ std::unique_ptr<genie::core::FlowGraph> buildEncoder(const ProgramOptions& pOpts
     attachImporter(*flow, pOpts, inputFiles);
     if (pOpts.qvMode == "none") {
         flow->setQVCoder(genie::util::make_unique<genie::quality::qvwriteout::NoneEncoder>(), 0);
+    }
+    else if (pOpts.qvMode == "calq")
+    {
+        flow->setQVCoder(genie::util::make_unique<genie::quality::calq::Encoder>(), 0);
     }
     if (pOpts.readNameMode == "none") {
         flow->setNameCoder(genie::util::make_unique<genie::core::NameEncoderNone>(), 0);

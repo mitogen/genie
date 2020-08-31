@@ -1,6 +1,8 @@
 #ifndef CALQ_DATA_STRUCTURES_H_
 #define CALQ_DATA_STRUCTURES_H_
 
+namespace genie{
+namespace quality{
 namespace calq {
 
 struct EncodingBlock {
@@ -64,5 +66,7 @@ struct EncodingOptions {
 };
 
 }  // namespace calq
+}  // namespace quality
+}  // namespace genie
 
 #endif  // CALQ_DATA_STRUCTURES_H_

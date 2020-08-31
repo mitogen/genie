@@ -16,6 +16,8 @@
 
 // -----------------------------------------------------------------------------
 
+namespace genie{
+namespace quality{
 namespace calq {
 
 // Detects areas with high-quality-softclips and spreads their activity score
@@ -64,6 +66,8 @@ class SoftclipSpreader
 // -----------------------------------------------------------------------------
 
 }  // namespace calq
+}  // namespace quality
+}  // namespace genie
 
 // -----------------------------------------------------------------------------
 

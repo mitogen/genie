@@ -2,8 +2,8 @@
 #include <gtest/gtest.h>
 
 TEST(LloydMaxQuantizer, UniformDistribution) {  // NOLINT(cert-err58-cpp)
-    calq::LloydMaxQuantizer q(10);
-    calq::ProbabilityDistribution pdf(0, 99);
+    genie::quality::calq::LloydMaxQuantizer q(10);
+    genie::quality::calq::ProbabilityDistribution pdf(0, 99);
 
     for (size_t i = 0; i <= 99; i++) {
         pdf.addToPdf(i);
@@ -18,8 +18,8 @@ TEST(LloydMaxQuantizer, UniformDistribution) {  // NOLINT(cert-err58-cpp)
 }
 
 TEST(LloydMaxQuantizer, NonUniformDistribution) {  // NOLINT(cert-err58-cpp)
-    calq::LloydMaxQuantizer q(10);
-    calq::ProbabilityDistribution pdf(1, 100);
+    genie::quality::calq::LloydMaxQuantizer q(10);
+    genie::quality::calq::ProbabilityDistribution pdf(1, 100);
 
     for (int i = 1; i <= 100; ++i) {
         pdf.addToPdf(static_cast<size_t>(i), static_cast<size_t>(pow(abs(i - 50), 4)));

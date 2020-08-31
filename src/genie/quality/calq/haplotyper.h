@@ -18,6 +18,8 @@
 
 // -----------------------------------------------------------------------------
 
+namespace genie{
+namespace quality{
 namespace calq {
 
 // -----------------------------------------------------------------------------
@@ -35,7 +37,7 @@ class Haplotyper
     FilterBuffer buffer;
 
     SoftclipSpreader spreader;
-    calq::Genotyper genotyper;
+    genie::quality::calq::Genotyper genotyper;
     size_t nr_quantizers;
     size_t polyploidy;
     const bool DEBUG;
@@ -87,6 +89,8 @@ class Haplotyper
 // -----------------------------------------------------------------------------
 
 }  // namespace calq
+}  // namespace quality
+}  // namespace genie
 
 // -----------------------------------------------------------------------------
 

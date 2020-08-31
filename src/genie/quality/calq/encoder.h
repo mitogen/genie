@@ -4,88 +4,71 @@
  * https://github.com/mitogen/genie for more details.
  */
 
-#ifndef GENIE_CODEBOOK_H
-#define GENIE_CODEBOOK_H
+#ifndef GENIE_CALQENCODER_H
+#define GENIE_CALQENCODER_H
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-#include <genie/util/bitreader.h>
-#include <genie/util/bitwriter.h>
-#include <cstdint>
-#include <vector>
+#include <genie/core/cigar-tokenizer.h>
+#include <genie/core/qv-encoder.h>
+#include <genie/quality/paramqv1/qv_coding_config_1.h>
+#include <genie/util/stringview.h>
 
 // ---------------------------------------------------------------------------------------------------------------------
 
 namespace genie {
 namespace quality {
-namespace paramqv1 {
+namespace calq {
 
 /**
  *
  */
-class Codebook {
+class Encoder : public core::QVEncoder {
    private:
-    std::vector<uint8_t> qv_recon;  //!<
+    /**
+     *
+     * @param rec
+     * @param param
+     * @param desc
+     */
+    static void setUpParameters(const core::record::Chunk& rec, paramqv1::QualityValues1& param,
+                                core::AccessUnit::Descriptor& desc, paramqv1::ParameterSet& set);
+
+    /**
+     *
+     * @param s
+     * @param ecigar
+     * @param desc
+     */
+    static void encodeAlignedSegment(const core::record::Segment& s, const std::string& ecigar,
+                                     core::AccessUnit::Descriptor& desc);
+
+    /**
+     *
+     * @param s
+     * @param desc
+     */
+    static void encodeUnalignedSegment(const core::record::Segment& s, core::AccessUnit::Descriptor& desc);
 
    public:
     /**
      *
-     * @param ps
+     * @param rec
      * @return
      */
-    bool operator==(const Codebook &ps) const;
-
-    /**
-     *
-     * @param reader
-     */
-    explicit Codebook(util::BitReader &reader);
-
-    /**
-     *
-     * @param v1
-     * @param v2
-     */
-    Codebook(uint8_t v1, uint8_t v2);
-
-    /**
-     *
-     */
-    Codebook();
-
-    /**
-     *
-     */
-    virtual ~Codebook() = default;
-
-    /**
-     *
-     * @param entry
-     */
-    void addEntry(uint8_t entry);
-
-    /**
-     *
-     * @return
-     */
-    const std::vector<uint8_t> &getEntries() const;
-
-    /**
-     *
-     * @param writer
-     */
-    virtual void write(util::BitWriter &writer) const;
+    core::QVEncoder::QVCoded process(const core::record::Chunk& rec) override;
+    
 };
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-}  // namespace paramqv1
+}  // namespace calq
 }  // namespace quality
 }  // namespace genie
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-#endif  // GENIE_CODEBOOK_H
+#endif  // GENIE_ENCODER_H
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------

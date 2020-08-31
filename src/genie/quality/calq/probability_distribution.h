@@ -11,6 +11,8 @@
 
 // -----------------------------------------------------------------------------
 
+namespace genie{
+namespace quality{
 namespace calq {
 
 // Samples a probability distribution
@@ -54,6 +56,8 @@ class ProbabilityDistribution
 // -----------------------------------------------------------------------------
 
 }  // namespace calq
+}  // namespace quality
+}  // namespace genie
 
 // -----------------------------------------------------------------------------
 

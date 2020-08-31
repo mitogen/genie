@@ -2,13 +2,13 @@
 #include <gtest/gtest.h>
 
 TEST(CircularBuffer, Size) {  // NOLINT(cert-err58-cpp)
-    calq::CircularBuffer<int> buffer(3, 0);
+    genie::quality::calq::CircularBuffer<int> buffer(3, 0);
 
     EXPECT_EQ(buffer.size(), 3);
 }
 
 TEST(CircularBuffer, Access) {  // NOLINT(cert-err58-cpp)
-    calq::CircularBuffer<int> buffer(3, 0);
+    genie::quality::calq::CircularBuffer<int> buffer(3, 0);
 
     buffer.push(1);
     buffer.push(2);

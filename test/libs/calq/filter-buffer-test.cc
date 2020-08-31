@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 TEST(FilterBuffer, Convolution) {  // NOLINT(cert-err58-cpp)
-    calq::FilterBuffer buffer([](size_t pos, size_t size) -> double { return pos / static_cast<double>(size - 1); }, 3);
+    genie::quality::calq::FilterBuffer buffer([](size_t pos, size_t size) -> double { return pos / static_cast<double>(size - 1); }, 3);
 
     EXPECT_EQ(buffer.filter(), 0);
     buffer.push(1);
@@ -15,7 +15,7 @@ TEST(FilterBuffer, Convolution) {  // NOLINT(cert-err58-cpp)
 }
 
 TEST(FilterBuffer, Offset) {  // NOLINT(cert-err58-cpp)
-    calq::FilterBuffer buffer([](size_t pos, size_t size) -> double { return pos / static_cast<double>(size - 1); }, 3);
+    genie::quality::calq::FilterBuffer buffer([](size_t pos, size_t size) -> double { return pos / static_cast<double>(size - 1); }, 3);
 
     EXPECT_EQ(buffer.getOffset(), 2);
 }

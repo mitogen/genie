@@ -1,8 +1,8 @@
-#include "quantizer.h"
+#include "../../../src/genie/quality/calq/quantizer.h"
 #include <gtest/gtest.h>
 
 TEST(Quantizer, EmptyLut) {  // NOLINT(cert-err58-cpp)
-    calq::Quantizer q;
+    genie::quality::calq::Quantizer q;
 
     // The inverse LUT should be empty.
     const std::map<int, int>& inverseLut = q.inverseLut();
@@ -11,7 +11,7 @@ TEST(Quantizer, EmptyLut) {  // NOLINT(cert-err58-cpp)
 
 TEST(Quantizer, PopulatedLut) {  // NOLINT(cert-err58-cpp)
     std::map<int, int> inverseLut = {{0, 0}, {1, 0}, {2, 1}, {3, 1}};
-    calq::Quantizer q(inverseLut);
+    genie::quality::calq::Quantizer q(inverseLut);
 
     // These should work
     EXPECT_EQ(q.indexToReconstructionValue(0), 0);

@@ -10,6 +10,8 @@
 
 // -----------------------------------------------------------------------------
 
+namespace genie{
+namespace quality{
 namespace calq {
 
 // -----------------------------------------------------------------------------
@@ -21,6 +23,8 @@ std::string fileNameExtension(const std::string& path);
 std::string removeFileNameExtension(const std::string& path);
 
 }  // namespace calq
+}  // namespace quality
+}  // namespace genie
 
 // -----------------------------------------------------------------------------
 

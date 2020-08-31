@@ -1,12 +1,12 @@
-#include "uniform_quantizer.h"
+#include "../../../src/genie/quality/calq/uniform_quantizer.h"
 #include <gtest/gtest.h>
 
 TEST(UniformQuantizer, Initialization) {  // NOLINT(cert-err58-cpp)
-    calq::UniformQuantizer q3(0, 1, 2);
+    genie::quality::calq::UniformQuantizer q3(0, 1, 2);
 }
 
 TEST(UniformQuantizer, PositiveRange) {  // NOLINT(cert-err58-cpp)
-    calq::UniformQuantizer q(0, 4, 2);
+    genie::quality::calq::UniformQuantizer q(0, 4, 2);
 
     EXPECT_EQ(q.valueToIndex(0), 0);
     EXPECT_EQ(q.valueToIndex(1), 0);
@@ -19,7 +19,7 @@ TEST(UniformQuantizer, PositiveRange) {  // NOLINT(cert-err58-cpp)
 }
 
 TEST(UniformQuantizer, NegativeRange) {  // NOLINT(cert-err58-cpp)
-    calq::UniformQuantizer q(-5, -1, 2);
+    genie::quality::calq::UniformQuantizer q(-5, -1, 2);
 
     EXPECT_EQ(q.valueToIndex(-5), 0);
     EXPECT_EQ(q.valueToIndex(-4), 0);
@@ -32,7 +32,7 @@ TEST(UniformQuantizer, NegativeRange) {  // NOLINT(cert-err58-cpp)
 }
 
 TEST(UniformQuantizer, EightBinning) {  // NOLINT(cert-err58-cpp)
-    calq::UniformQuantizer q(0, 40, 8);
+    genie::quality::calq::UniformQuantizer q(0, 40, 8);
 
     EXPECT_EQ(q.valueToIndex(0), 0);
     EXPECT_EQ(q.valueToIndex(1), 0);

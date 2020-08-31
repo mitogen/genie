@@ -5,13 +5,13 @@
 TEST(Helpers, FileExists) {  // NOLINT(cert-err58-cpp)
     std::string gitRootDir = calq_tests::exec("git rev-parse --show-toplevel");
 
-    EXPECT_EQ(calq::fileExists(gitRootDir + "/README.md"), true);
-    EXPECT_EQ(calq::fileExists(gitRootDir + "/nonexistent"), false);
+    EXPECT_EQ(genie::quality::calq::fileExists(gitRootDir + "/README.md"), true);
+    EXPECT_EQ(genie::quality::calq::fileExists(gitRootDir + "/nonexistent"), false);
 }
 
 TEST(Helpers, FileNameExtension) {  // NOLINT(cert-err58-cpp)
     std::string gitRootDir = calq_tests::exec("git rev-parse --show-toplevel");
 
-    EXPECT_EQ(calq::fileNameExtension(gitRootDir + "/README.md"), "md");
-    EXPECT_EQ(calq::fileNameExtension(gitRootDir + "/no-extension"), "");
+    EXPECT_EQ(genie::quality::calq::fileNameExtension(gitRootDir + "/README.md"), "md");
+    EXPECT_EQ(genie::quality::calq::fileNameExtension(gitRootDir + "/no-extension"), "");
 }

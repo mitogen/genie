@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 TEST(SoftclipSpreader, Everything) {  // NOLINT(cert-err58-cpp)
-    calq::SoftclipSpreader b(5, 3, false);
+    genie::quality::calq::SoftclipSpreader b(5, 3, false);
 
     EXPECT_EQ(b.getOffset(), 5);
 

@@ -219,7 +219,7 @@ void ProgramOptions::validate() {
 
     std::cout << std::endl;
 
-    UTILS_DIE_IF(qvMode != "none" && qvMode != "lossless", "QVMode " + qvMode + " unknown");
+    UTILS_DIE_IF(qvMode != "none" && qvMode != "lossless" && qvMode != "calq", "QVMode " + qvMode + " unknown");
     UTILS_DIE_IF(refMode != "none" && refMode != "relevant" && refMode != "full", "RefMode " + refMode + " unknown");
     UTILS_DIE_IF(readNameMode != "none" && readNameMode != "lossless", "Read name mode " + readNameMode + " unknown");
 
