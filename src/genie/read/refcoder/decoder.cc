@@ -21,23 +21,30 @@ Decoder::Decoder() : core::ReadDecoder() {}
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-void addECigar(const core::record::Record& rec, std::vector<std::string>& cig_vec) {
+void addECigar(const core::record::Record& rec, std::vector<std::string>& cig_vec, std::vector<uint64_t>& mapping_pos) {
     size_t num = 0;
+    uint64_t cur_map_pos = 0;
     for (const auto& seg : rec.getSegments()) {
         if (rec.getAlignments().empty()) {
             cig_vec.emplace_back(std::to_string(seg.getSequence().length()) + '+');
             num++;
+            mapping_pos.emplace_back(cur_map_pos);
             continue;
         }
         if (!num) {
             cig_vec.emplace_back(rec.getAlignments().front().getAlignment().getECigar());
+            cur_map_pos = rec.getAlignments().front().getPosition();
+            mapping_pos.emplace_back(cur_map_pos);
         } else {
             if (rec.getAlignments().front().getAlignmentSplits().size() <= num - 1) {
                 auto* split = dynamic_cast<const core::record::alignment_split::SameRec*>(
                     rec.getAlignments().front().getAlignmentSplits()[num - 1].get());
                 cig_vec.emplace_back(split->getAlignment().getECigar());
+                cur_map_pos = rec.getAlignments().front().getPosition() + split->getDelta();
+                mapping_pos.emplace_back(cur_map_pos);
             } else {
                 cig_vec.emplace_back(std::to_string(seg.getSequence().length()) + '+');
+                mapping_pos.emplace_back(cur_map_pos);
             }
         }
         num++;
@@ -66,6 +73,7 @@ void Decoder::flowIn(core::AccessUnit&& t, const util::Section& id) {
     chunk.setStats(std::move(t_data.getStats()));
     basecoder::Decoder decoder(std::move(t_data), segments, minPos);
     std::vector<std::string> ecigars;
+    std::vector<uint64_t> mapping_pos;
     for (size_t recID = 0; recID < numRecords; ++recID) {
         auto meta = decoder.readSegmentMeta();
         std::vector<std::string> refs;
@@ -79,12 +87,12 @@ void Decoder::flowIn(core::AccessUnit&& t, const util::Section& id) {
         if (!std::get<0>(names).empty()) {
             rec.setName(std::get<0>(names)[recID]);
         }
-        addECigar(rec, ecigars);
+        addECigar(rec, ecigars, mapping_pos);
         chunk.getData().emplace_back(std::move(rec));
     }
     chunk.getStats().addDouble("time-localassembly", watch.check());
     watch.reset();
-    auto qvs = this->qvcoder->process(qvparam, ecigars, qvStream);
+    auto qvs = this->qvcoder->process(qvparam, ecigars, mapping_pos, qvStream);
     size_t qvCounter = 0;
     if (!std::get<0>(qvs).empty()) {
         for (auto& r : chunk.getData()) {

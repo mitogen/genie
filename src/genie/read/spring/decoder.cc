@@ -260,11 +260,14 @@ void Decoder::flowIn(genie::core::AccessUnit&& t, const util::Section& id) {
     std::vector<uint32_t> mate_record_index;
 
     std::vector<std::string> ecigars;
+    std::vector<uint64_t> mapping_pos;
     while (!au.get(core::GenSub::RTYPE).end()) {
         if (au.get(core::GenSub::RTYPE).pull() != 5) {
+            mapping_pos.emplace_back(0);
             ecigars.emplace_back(std::to_string(au.get(core::GenSub::RLEN).pull() + 1) + "+");
             if (cp.paired_end) {
                 if (au.get(core::GenSub::PAIR_DECODING_CASE).pull() == 0) {
+                    mapping_pos.emplace_back(0);
                     ecigars.emplace_back(std::to_string(au.get(core::GenSub::RLEN).pull() + 1) + "+");
                 }
             }
@@ -279,7 +282,7 @@ void Decoder::flowIn(genie::core::AccessUnit&& t, const util::Section& id) {
     watch.pause();
     auto names = namecoder->process(au.get(core::GenDesc::RNAME));
     au.getStats().add(std::get<1>(names));
-    auto qvs = qvcoder->process(au.getParameters().getQVConfig(core::record::ClassType::CLASS_U), ecigars,
+    auto qvs = qvcoder->process(au.getParameters().getQVConfig(core::record::ClassType::CLASS_U), ecigars, mapping_pos,
                                 au.get(core::GenDesc::QV));
     au.getStats().add(std::get<1>(qvs));
     watch.resume();

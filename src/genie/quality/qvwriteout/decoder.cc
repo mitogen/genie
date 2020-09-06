@@ -15,7 +15,7 @@ namespace qvwriteout {
 // ---------------------------------------------------------------------------------------------------------------------
 
 std::tuple<std::vector<std::string>, core::stats::PerfStats> Decoder::process(
-    const core::parameter::QualityValues& param, const std::vector<std::string>& ecigar_vec,
+    const core::parameter::QualityValues& param, const std::vector<std::string>& ecigar_vec, const std::vector<uint64_t>& mapping_pos,
     core::AccessUnit::Descriptor& desc) {
     std::tuple<std::vector<std::string>, core::stats::PerfStats> qv;
     if (desc.isEmpty()) {

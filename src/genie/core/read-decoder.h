@@ -30,7 +30,7 @@ namespace core {
 class ReadDecoder : public Module<AccessUnit, record::Chunk> {
    public:
     using QvSelector = util::SideSelector<QVDecoder, std::tuple<std::vector<std::string>, core::stats::PerfStats>,
-                                          const parameter::QualityValues&, const std::vector<std::string>&,
+                                          const parameter::QualityValues&, const std::vector<std::string>&, const std::vector<uint64_t>&,
                                           AccessUnit::Descriptor&>;  //!<
     using NameSelector = util::SideSelector<NameDecoder, std::tuple<std::vector<std::string>, core::stats::PerfStats>,
                                             AccessUnit::Descriptor&>;  //!<

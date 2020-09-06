@@ -107,7 +107,7 @@ void FlowGraphDecode::setReadCoderSelector(const std::function<size_t(const geni
 // ---------------------------------------------------------------------------------------------------------------------
 
 void FlowGraphDecode::setQVSelector(
-    std::function<size_t(const genie::core::parameter::QualityValues& param, const std::vector<std::string>& ecigar,
+    std::function<size_t(const genie::core::parameter::QualityValues& param, const std::vector<std::string>& ecigar, const std::vector<uint64_t>& mapping_pos,
                          genie::core::AccessUnit::Descriptor& desc)>
         fun) {
     qvSelector.setSelection(std::move(fun));
