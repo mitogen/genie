@@ -50,6 +50,8 @@ class ProgramOptions {
 
     size_t numberOfThreads;  //!<
     bool rawReference;       //!<
+    
+    size_t polyploidy; 
 
    private:
     /**

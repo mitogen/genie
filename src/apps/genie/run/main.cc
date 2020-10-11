@@ -185,7 +185,7 @@ std::unique_ptr<genie::core::FlowGraph> buildEncoder(const ProgramOptions& pOpts
     }
     else if (pOpts.qvMode == "calq")
     {
-        flow->setQVCoder(genie::util::make_unique<genie::quality::calq::Encoder>(), 0);
+        flow->setQVCoder(genie::util::make_unique<genie::quality::calq::Encoder>(pOpts.polyploidy), 0);
     }
     if (pOpts.readNameMode == "none") {
         flow->setNameCoder(genie::util::make_unique<genie::core::NameEncoderNone>(), 0);

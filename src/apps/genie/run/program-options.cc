@@ -75,6 +75,9 @@ ProgramOptions::ProgramOptions(int argc, char *argv[]) {
 
     rawReference = false;
     app.add_flag("--raw-ref", rawReference, "");
+    
+    polyploidy = 2;
+    app.add_option("--polyploidy", polyploidy, "");
 
     try {
         app.parse(argc, argv);
@@ -222,6 +225,7 @@ void ProgramOptions::validate() {
     UTILS_DIE_IF(qvMode != "none" && qvMode != "lossless" && qvMode != "calq", "QVMode " + qvMode + " unknown");
     UTILS_DIE_IF(refMode != "none" && refMode != "relevant" && refMode != "full", "RefMode " + refMode + " unknown");
     UTILS_DIE_IF(readNameMode != "none" && readNameMode != "lossless", "Read name mode " + readNameMode + " unknown");
+    UTILS_DIE_IF(polyploidy < 1 || polyploidy > 255, "polyploidy must be greater than 0 and less than 256");
 
     if (std::thread::hardware_concurrency()) {
         UTILS_DIE_IF(numberOfThreads < 1 || numberOfThreads > std::thread::hardware_concurrency(),

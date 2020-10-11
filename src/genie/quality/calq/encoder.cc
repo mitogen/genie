@@ -19,6 +19,12 @@ namespace calq {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+Encoder::Encoder(){}
+
+Encoder::Encoder(const size_t& pploidy):polyploidy(pploidy){}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
 void Encoder::setUpParameters(const core::record::Chunk& rec, paramqv1::QualityValues1& param,
                               core::AccessUnit::Descriptor& desc, paramqv1::ParameterSet& set) {
     //paramqv1::ParameterSet set;
@@ -89,14 +95,7 @@ core::QVEncoder::QVCoded Encoder::process(const core::record::Chunk& rec) {
     DecodingBlock output;
 
     sideInformation.qualOffset = 33;
-    if (sideInformation.positions.empty())
-    {
-        sideInformation.posOffset = 0;
-    }
-    else
-    {
-        sideInformation.posOffset = sideInformation.positions[0];
-    }
+    opt.polyploidy = polyploidy;
     
     auto param = util::make_unique<paramqv1::QualityValues1>(paramqv1::QualityValues1::QvpsPresetId::OFFSET33_RANGE41, false);
     core::AccessUnit::Descriptor desc(core::GenDesc::QV);
@@ -130,6 +129,14 @@ core::QVEncoder::QVCoded Encoder::process(const core::record::Chunk& rec) {
             ctr++;
         }
         iter++;
+    }
+    if (sideInformation.positions.empty())
+    {
+        sideInformation.posOffset = 0;
+    }
+    else
+    {
+        sideInformation.posOffset = sideInformation.positions[0];
     }
     encode(opt, sideInformation, input, &output);
 
