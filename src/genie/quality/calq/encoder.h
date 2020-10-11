@@ -25,7 +25,7 @@ namespace calq {
  */
 class Encoder : public core::QVEncoder {
    private:
-   size_t polyploidy;
+   uint8_t polyploidy;
 
     /**
      *
@@ -69,7 +69,7 @@ class Encoder : public core::QVEncoder {
      *
      * @param polyploidy
      */
-    Encoder(const size_t& pploidy);
+    Encoder(const uint8_t& pploidy);
     
 };
 

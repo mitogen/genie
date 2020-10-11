@@ -21,7 +21,7 @@ namespace calq {
 
 Encoder::Encoder(){}
 
-Encoder::Encoder(const size_t& pploidy):polyploidy(pploidy){}
+Encoder::Encoder(const uint8_t& pploidy):polyploidy(pploidy){}
 
 // ---------------------------------------------------------------------------------------------------------------------
 
