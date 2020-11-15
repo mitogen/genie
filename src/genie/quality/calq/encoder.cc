@@ -21,7 +21,7 @@ namespace calq {
 
 Encoder::Encoder(){}
 
-Encoder::Encoder(const uint8_t& pploidy):polyploidy(pploidy){}
+Encoder::Encoder(const uint8_t& pploidy, const std::string& calq_ver):polyploidy(pploidy),calq_version(calq_ver){}
 
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -96,7 +96,17 @@ core::QVEncoder::QVCoded Encoder::process(const core::record::Chunk& rec) {
 
     sideInformation.qualOffset = 33;
     opt.polyploidy = polyploidy;
-    
+    if (calq_version == "v2"){
+        opt.version = Version::V2;
+    }
+    else
+    {
+        opt.version = Version::V1;
+    }
+
+    sideInformation.reference = *rec.getRef().getChunkAt(rec.getRef().getGlobalStart());
+    sideInformation.reference = sideInformation.reference.substr(rec.getRef().getGlobalStart(), rec.getRef().getGlobalEnd() - rec.getRef().getGlobalStart());
+
     auto param = util::make_unique<paramqv1::QualityValues1>(paramqv1::QualityValues1::QvpsPresetId::OFFSET33_RANGE41, false);
     core::AccessUnit::Descriptor desc(core::GenDesc::QV);
 
@@ -152,6 +162,13 @@ core::QVEncoder::QVCoded Encoder::process(const core::record::Chunk& rec) {
        iter++;
    }
    setUpParameters(rec, *param, desc, set);
+
+   //setting QV_PRESENT Descriptor
+   for (const auto& r : rec.getData()){
+       for (const auto& s : r.getSegments()){
+           desc.get(0).push(!s.getQualities().empty());
+       }
+   }
 
    //setting desc stepindeces
     iter = 2;

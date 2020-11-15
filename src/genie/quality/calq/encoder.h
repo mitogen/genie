@@ -1,3 +1,4 @@
+
 /**
  * @file
  * @copyright This file is part of GENIE. See LICENSE and/or
@@ -26,6 +27,7 @@ namespace calq {
 class Encoder : public core::QVEncoder {
    private:
    uint8_t polyploidy;
+   std::string calq_version;
 
     /**
      *
@@ -67,9 +69,10 @@ class Encoder : public core::QVEncoder {
 
     /**
      *
-     * @param polyploidy
+     * @param pploidy
+     * @param calq_ver
      */
-    Encoder(const uint8_t& pploidy);
+    Encoder(const uint8_t& pploidy, const std::string& calq_ver);
     
 };
 

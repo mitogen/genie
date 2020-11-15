@@ -79,6 +79,9 @@ ProgramOptions::ProgramOptions(int argc, char *argv[]) {
     polyploidy = 2;
     app.add_option("--polyploidy", polyploidy, "");
 
+    calq_version = "v1";
+    app.add_option("--calq_version", calq_version, "");
+
     try {
         app.parse(argc, argv);
 
@@ -226,6 +229,7 @@ void ProgramOptions::validate() {
     UTILS_DIE_IF(refMode != "none" && refMode != "relevant" && refMode != "full", "RefMode " + refMode + " unknown");
     UTILS_DIE_IF(readNameMode != "none" && readNameMode != "lossless", "Read name mode " + readNameMode + " unknown");
     UTILS_DIE_IF(polyploidy < 1 || polyploidy > 255, "polyploidy must be greater than 0 and less than 256");
+    UTILS_DIE_IF(calq_version != "v1" && calq_version != "v2", "CALQ version " + calq_version + " unknown");
 
     if (std::thread::hardware_concurrency()) {
         UTILS_DIE_IF(numberOfThreads < 1 || numberOfThreads > std::thread::hardware_concurrency(),
