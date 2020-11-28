@@ -107,19 +107,19 @@ void SAMPileupDeque::print() const{
 
 // -----------------------------------------------------------------------------
 
-uint32_t SAMPileupDeque::posMax() const{
+uint64_t SAMPileupDeque::posMax() const{
     return posMax_;
 }
 
 // -----------------------------------------------------------------------------
 
-uint32_t SAMPileupDeque::posMin() const{
+uint64_t SAMPileupDeque::posMin() const{
     return posMin_;
 }
 
 // -----------------------------------------------------------------------------
 
-void SAMPileupDeque::setPosMax(const uint32_t& posMax){
+void SAMPileupDeque::setPosMax(const uint64_t& posMax){
     if (posMax < posMax_) {
         throwErrorException("posMax range");
     }
@@ -129,7 +129,7 @@ void SAMPileupDeque::setPosMax(const uint32_t& posMax){
 
 // -----------------------------------------------------------------------------
 
-void SAMPileupDeque::setPosMin(const uint32_t& posMin){
+void SAMPileupDeque::setPosMin(const uint64_t& posMin){
     if (posMin < posMin_) {
         throwErrorException("posMin range");
     }
@@ -137,7 +137,7 @@ void SAMPileupDeque::setPosMin(const uint32_t& posMin){
     if (empty()) {
         posMin_ = posMin;
     } else {
-        for (uint32_t i = posMin_; i < posMin; i++) {
+        for (uint64_t i = posMin_; i < posMin; i++) {
             pop_front();
         }
     }
@@ -180,7 +180,7 @@ void SAMPileupDeque::add(const EncodingRead& r,
             case 'X':
                 for (size_t i = 0; i < opLen; i++) {
                     this->pileups_[pileupIdx].pos
-                            = static_cast<uint32_t>(this->posMin() + pileupIdx);
+                            = static_cast<uint64_t>(this->posMin() + pileupIdx);
                     this->pileups_[pileupIdx].seq += r.sequence[idx];
                     this->pileups_[pileupIdx].qual += r.qvalues[idx];
                     if (!r.reference.empty()) {

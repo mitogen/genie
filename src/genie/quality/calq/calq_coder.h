@@ -30,7 +30,7 @@ struct SideInformation
      * 1-based leftmost mapping position for each read.
      * Needed for: Encoding, Decoding.
      */
-    std::vector<uint32_t> positions;
+    std::vector<uint64_t> positions;
 
     /**
      * Base sequence for each read.
@@ -57,7 +57,7 @@ struct SideInformation
      * First position of read (including unmapped).
      * Needed for: Encoding, Decoding
      */
-    uint32_t posOffset;
+    uint64_t posOffset;
 
     /**
      * Quality value format offset.

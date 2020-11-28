@@ -31,8 +31,8 @@ enum struct Version;
 
 struct EncodingRead
 {
-    uint32_t posMin;
-    uint32_t posMax;
+    uint64_t posMin;
+    uint64_t posMax;
     std::string qvalues;
     std::string cigar;
     std::string sequence;
@@ -66,7 +66,7 @@ class QualEncoder
     uint8_t qualityValueOffset_;
 
     // 0-based position offset of this block
-    uint32_t posOffset_;
+    uint64_t posOffset_;
 
     // Pileup
     SAMPileupDeque samPileupDeque_;

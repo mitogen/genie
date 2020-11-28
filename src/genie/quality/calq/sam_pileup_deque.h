@@ -41,11 +41,11 @@ class SAMPileupDeque
 
     void print() const;
 
-    uint32_t posMax() const;
-    uint32_t posMin() const;
+    uint64_t posMax() const;
+    uint64_t posMin() const;
 
-    void setPosMax(const uint32_t& posMax);
-    void setPosMin(const uint32_t& posMin);
+    void setPosMax(const uint64_t& posMax);
+    void setPosMin(const uint64_t& posMin);
 
     void add(const EncodingRead& r,
              uint8_t qvalOffset,
@@ -54,8 +54,8 @@ class SAMPileupDeque
 
  private:
     std::deque<SAMPileup> pileups_;
-    uint32_t posMax_;
-    uint32_t posMin_;
+    uint64_t posMax_;
+    uint64_t posMin_;
 };
 
 // -----------------------------------------------------------------------------

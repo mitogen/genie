@@ -20,10 +20,10 @@ namespace calq {
 
 // -----------------------------------------------------------------------------
 
-static uint32_t computeLength(const std::string& cigar){
+static uint64_t computeLength(const std::string& cigar){
     // Compute 0-based first position and 0-based last position this record
     // is mapped to on the reference used for alignment
-    uint32_t posMax = 0;
+    uint64_t posMax = 0;
 
     size_t cigarIdx = 0;
     size_t cigarLen = cigar.length();

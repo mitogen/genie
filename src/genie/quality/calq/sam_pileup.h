@@ -26,7 +26,7 @@ class SAMPileup
     void printQual() const;
     void printSeq() const;
 
-    uint32_t pos;  // 0-based position of this pileup
+    uint64_t pos;  // 0-based position of this pileup
     std::string qual;
     std::string seq;
     char ref;
