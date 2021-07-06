@@ -225,15 +225,24 @@ void SamRecordGroup::moveSecondaryAlignments() {
     // Move secondary alignments which can be associated with a primary read
     auto s1 = std::move(data[uint8_t(TemplateType::PAIRED_1)][uint8_t(MappingType::NONPRIMARY)]);
     auto s2 = std::move(data[uint8_t(TemplateType::PAIRED_2)][uint8_t(MappingType::NONPRIMARY)]);
-    for (auto it1 = s1.begin(); it1 != s1.end(); ++it1) {
-        for (auto it2 = s2.begin(); it2 != s2.end(); ++it2) {
+    bool deleted = false;
+    for (auto it1 = s1.begin(); it1 != s1.end();) {
+        for (auto it2 = s2.begin(); it2 != s2.end();) {
             if (it1->isPairOf(*it2)) {
                 data[uint8_t(TemplateType::PAIRED_1)][uint8_t(MappingType::NONPRIMARY)].push_back(*it1);
                 data[uint8_t(TemplateType::PAIRED_2)][uint8_t(MappingType::NONPRIMARY)].push_back(*it2);
                 it1 = s1.erase(it1);
                 it2 = s2.erase(it2);
+                deleted = true;
                 break;
+            } else {
+                ++it2;
             }
+        }
+        if (!deleted) {
+            ++it1;
+        } else {
+            deleted = false;
         }
     }
 
