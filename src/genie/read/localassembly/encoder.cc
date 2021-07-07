@@ -133,11 +133,32 @@ core::AccessUnit Encoder::pack(size_t id, uint16_t ref, uint8_t qv_depth,
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+bool containsSplice(const core::record::Record& rec) {
+    std::string cigar;
+    if (rec.getClassID() == core::record::ClassType::CLASS_U) {
+        return false;
+    } else if (rec.getClassID() == core::record::ClassType::CLASS_HM) {
+        cigar = rec.getAlignments().front().getAlignment().getECigar();
+    } else {
+        cigar = rec.getAlignments().front().getAlignment().getECigar();
+        if (rec.getSegments().size() == 2) {
+            cigar += dynamic_cast<core::record::alignment_split::SameRec*>(
+                         rec.getAlignments().front().getAlignmentSplits().front().get())
+                         ->getAlignment()
+                         .getECigar();
+        }
+    }
+    return cigar.find_first_of('*') != std::string::npos || cigar.find_first_of('%') != std::string::npos ||
+           cigar.find_first_of('/') != std::string::npos;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
 void Encoder::flowIn(core::record::Chunk&& t, const util::Section& id) {
     util::Watch watch;
     core::record::Chunk data = std::move(t);
     for (auto it = data.getData().begin(); it != data.getData().end();) {
-        if (it->getClassID() == core::record::ClassType::CLASS_HM) {
+        if (it->getClassID() == core::record::ClassType::CLASS_HM || containsSplice(*it)) {
             //    std::cerr << "Skipping record of class HM in local assembly..." << std::endl;
             it = data.getData().erase(it);
             continue;
