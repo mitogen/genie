@@ -416,6 +416,10 @@ void SamRecordGroup::convert(std::list<genie::core::record::Record> &records, bo
         return;
     }
 
+    if (r1 && r2 && std::abs(int64_t(r1->getPos()) - int64_t(r2->getPos())) > 32767) {
+        return;  // TODO(fabian): do not discard
+    }
+
     if (is_r1_first) {
         addAlignment(rec, r1, r2, cls.first);
     } else {
